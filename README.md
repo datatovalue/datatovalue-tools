@@ -18,7 +18,7 @@ Save Results | `Save Results` from executed SQL via the user interface
 Create View | Append DDL prefix string and `EXECUTE IMMEDIATE`
 Create Table | Append DDL prefix string and `EXECUTE IMMEDIATE`
 
-The following examples assume that the source data is in the `us-west1`region for the `row_duplicate_query` function. For data in different regions simply replace the `us-west1` with the appropriate region identifier and the function name with the desired function name.
+The following examples assume that the source data is in the `us-west1`region for the `row_duplicate_query` function. For data in different regions simply replace the `us-west1` with the appropriate region identifier and the function invocation code with the desired function name and appropriate arguments.
 
 #### View SQL
 In order to view the SQL which has been generated, use a simple `SELECT` statement and pass the `table_id`:
