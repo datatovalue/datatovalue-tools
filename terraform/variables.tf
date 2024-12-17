@@ -7,3 +7,8 @@ variable "regions" {
   type        = list(string)
   description = "The list of deployment regions"
 }
+
+variable "release_version" {
+  type        = string
+  description = "The version of the deployed function set in the form 1.0.0 etc."
+}
