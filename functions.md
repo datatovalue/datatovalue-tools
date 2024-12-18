@@ -1,11 +1,11 @@
 # Functions
 
-## Row Duplicate Query
+## row_duplicate_query
 The `row_duplicate_query` is used to identify duplicate rows in any table.
 
 Argument | Data Type | Description
 --- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
+table_id | STRING | Fully signed ID of the table to be profiled.
 
 It can be executed using the following syntax:
 
@@ -15,13 +15,13 @@ DECLARE table_id STRING;
 SET table_id = 'project_a.dataset_a.table_a';
 
 EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.us_west1.row_duplicate_query`(
+SELECT `datatovalue-tools.us_west1.row_duplicate_query` (
 table_id));
 ```
 
 The result will be the original table, with some additional metadata columns. The boolean column `duplicate_row_flag`  identifies duplicate rows in the data.
 
-## Unique Combination Query
+## unique_combination_query
 The `unique_combination_query` is used to validate whether combinations of columns are unique in any table. This supports validation of granularity assumptions and unique key development, testing and monitoring.
 
 Argument | Data Type | Description
@@ -45,8 +45,8 @@ column_names
 ));
 ```
 
-## Table Partitions Query (`table_partitions_query`)
-The `table_partitions_query` is used to validate date partition existence across all tables in a single project, across multiple datasets. It also flags tables where there are gaps in the existing date partitions and identifies the specific missing dates.
+## table_date_partitions_query
+The `table_date_partitions_query` is used to validate date partition existence across all tables in a single project, across multiple datasets. It also flags tables where there are gaps in the existing date partitions and identifies specific missing dates.
 
 Argument | Data Type | Description
 --- | --- | ---
