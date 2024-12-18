@@ -3,14 +3,14 @@
 Data to Value Tools are BigQuery utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
 
 ## Functions
-The following functions are deployed in the `datatovalue-tools` respository:
+The following functions are deployed in the **datatovalue-tools** Google Cloud project. Function documentation is [here](functions.md).
 
 Function | Description
 --- | ---
-`row_duplicate_query` | Flags exact duplicate rows in a table
-`unique_combination_query` | Computes uniqueness across sets of table columns
-`table_date_partitions_query` | Profiles table date partition existence across datasets and identies gaps
-`column_profile_query` | Profiles table column values for min/max/null counts
+[row_duplicate_query](functions.md#row_duplicate_query) | Flags exact duplicate rows in a table
+[unique_combination_query](functions.md#row_duplicate_query) | Computes uniqueness across sets of table columns
+[table_date_partitions_query](functions.md#row_duplicate_query) | Profiles table date partition existence across datasets and identies gaps
+[column_profile_query](functions.md#row_duplicate_query) | Profiles table column values for min/max/null counts
 
 ## Deployment
 
