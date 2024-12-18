@@ -1,15 +1,16 @@
 # datatovalue-tools
 
-Data to Value Tools are utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
+Data to Value Tools are BigQuery utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
 
 ## Functions
 The following functions are deployed in the `datatovalue-tools` respository:
 
 Function | Description
 --- | ---
-`row_duplicate_query` | Flags exact duplicate rows
-`unique_combination_query` | Computes uniqueness across sets of columns
-`table_date_partitions_query` | Profiles date partition existence across datasets and identies gaps
+`row_duplicate_query` | Flags exact duplicate rows in a table
+`unique_combination_query` | Computes uniqueness across sets of table columns
+`table_date_partitions_query` | Profiles table date partition existence across datasets and identies gaps
+`column_profile_query` | Profiles table column values for min/max/null counts
 
 ## Deployment
 
