@@ -5,4 +5,7 @@ resource "google_bigquery_dataset" "create_datasets" {
   location                   = each.value
   description                = "datatovalue-tools v${var.release_version}"
   delete_contents_on_destroy = true
+  labels = {
+    datatovalue-tools-version = "v${replace(var.release_version,".", "_")}"
+  }
 }
