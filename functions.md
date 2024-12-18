@@ -67,3 +67,28 @@ SELECT `datatovalue-tools.us_west1.table_partitions_query` (
 project_id, 
 dataset_names));
 ```
+
+## column_profile_query
+The `column_profile_query` is used compute column metrics such as minimum and maximum values, null values and null percentage.
+
+Argument | Data Type | Description
+--- | --- | ---
+`table_id` | `STRING` | Fully signed ID of the table to be profiled.
+
+Note that since this function needs to query the `INFORMATION_SCHEMA.COLUMNS` view to get the precise table columns, executing the returned query will return _another_ SQL query. This must in turn be executed in order to obtain the result.
+
+This can be achieved using the following syntax:
+
+```sql
+DECLARE table_id, query STRING;
+
+SET table_id = 'project_a.dataset_a.table_a';
+
+EXECUTE IMMEDIATE (
+SELECT `datatovalue-tools.us_west1.table_partitions_query` (          
+project_id, 
+dataset_names)
+) INTO query;
+
+EXECUTE IMMEDIATE (query);
+```
