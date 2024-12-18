@@ -1,5 +1,5 @@
 project_id      = "datatovalue-tools"
-release_version = "1.0.0"
+release_version = "1.0.1"
 regions = [
   # -----------------------------------
   # Multi-Regions

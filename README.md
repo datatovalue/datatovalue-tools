@@ -1,6 +1,6 @@
 # datatovalue-tools
 
-Data to Value Tools as are utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
+Data to Value Tools are utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
 
 ## Functions
 The following functions are deployed in the `datatovalue-tools` respository:
