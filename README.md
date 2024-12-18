@@ -68,32 +68,3 @@ SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project.da
 SET query = "CREATE OR REPLACE VIEW `project.dataset.new_table` AS "||query;
 EXECUTE IMMEDIATE (query);
 ```
-
-### Functions
-
-#### Row Duplicate Query
-The `row_duplicate_query` is used to identify duplicate rows in any table.
-
-Argument | Data Type | Description
---- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
-
-It is executed using the following syntax:
-
-```sql
-SELECT `datatovalue-tools.us_west1.row_duplicate_query(table_id)`
-```
-
-#### Unique Combination Query
-The `unique_combination_query` is used to validate whether combinations of columns are unique in any table. This supports validation of granularity assumptions and unique key development, testing and monitoring.
-
-Argument | Data Type | Description
---- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
-`columns_list` | `ARRAY<STRING>` | An array containing the column names of columns to be profiled.
-
-It is executed using the following syntax:
-
-```sql
-SELECT `datatovalue-tools.us_west1.row_duplicate_query(table_id, columns_list)`
-```
