@@ -28,6 +28,7 @@ Action | Approach
 [Execute SQL](#execute-sql) | `EXECUTE IMMEDIATE` function
 [Save Results](#save-results) | `Save Results` from executed SQL via the user interface
 [Create Table](#create-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
+[Create Temporary Table](#create-temporary-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
 [Create View](#create-view) | Append DDL prefix string and `EXECUTE IMMEDIATE`
 
 ## Examples
@@ -76,6 +77,21 @@ EXECUTE IMMEDIATE (query);
 ```
 
 Note that options and partitioning/clustering can be also included here to customize the destination table properties.
+
+### Create Temporary Table
+To create the temporary table in one statement, simple append the required DDL to the beginning of the query and use the `EXECUTE IMMEDIATE` statement on the combined query:
+
+```sql
+DECLARE query STRING;
+
+SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+
+SET query = "CREATE OR REPLACE TEMP TABLE `temp_table_name` AS "||query;
+
+EXECUTE IMMEDIATE (query);
+```
+
+Now the temporary table can be referenced by alias for the duration of the session.
 
 #### Create View
 To create a view (which makes the generated code available to edit), the syntax is analagous:

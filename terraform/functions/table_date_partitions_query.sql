@@ -46,7 +46,7 @@ aggregate_to_table_id AS (
 
 compute_partition_date_coverage AS (
   SELECT *,
-  ROUND(100*SAFE_DIVIDE(partition_date_count, partition_date_range_days), 2) AS partition_date_coverage_perc
+  ROUND(100*SAFE_DIVIDE(partition_date_count, partition_date_range_days), 3) AS partition_date_coverage_perc
   FROM aggregate_to_table_id
   ),
 

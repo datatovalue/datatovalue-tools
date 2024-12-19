@@ -14,10 +14,11 @@ build_row_queries AS (
     FORMAT("'%s' AS data_type,", data_type),
     "COUNT(*) AS records,",
     FORMAT("COUNTIF(%s IS NULL) AS null_records,", column_name),
-    FORMAT("ROUND(100*SAFE_DIVIDE(COUNTIF(%s IS NULL),", column_name),
-    "COUNT(*)), 2) AS null_percentage,",
+    FORMAT("ROUND(100*SAFE_DIVIDE(COUNTIF(%s IS NULL), COUNT(*)), 3) AS null_percentage,", column_name),
     FORMAT("SAFE_CAST(MIN(%s) AS STRING) AS min_value,", column_name),
     FORMAT("SAFE_CAST(MAX(%s) AS STRING) AS max_value,", column_name),
+    FORMAT("COUNT(DISTINCT %s) AS unique_values,", column_name),
+    FORMAT("ROUND(100*SAFE_DIVIDE(COUNT(DISTINCT %s), COUNT(*)), 3) AS uniqueness_percentage", column_name),
     FORMAT("FROM `%s.%s.%s` AS table_id", table_catalog, table_schema, table_name)
     ], " ") AS row_query
   FROM get_columns),

@@ -15,7 +15,7 @@ build_query AS (
     SAFE_CAST(ARRAY_LENGTH(ARRAY_AGG(column)) AS STRING)||" AS combination_columns,",
     "COUNT(*) AS unique_combinations,",
     "records,",
-    "ROUND(100*SAFE_DIVIDE(COUNT(*), records), 2) AS uniqueness_percentage",
+    "ROUND(100*SAFE_DIVIDE(COUNT(*), records), 3) AS uniqueness_percentage",
     "FROM (",
     "SELECT "||STRING_AGG((column), ", ")||",",
     "(SELECT COUNT(*) FROM `"||table_id||"`) AS records",

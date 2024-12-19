@@ -2,7 +2,7 @@ project_id      = "datatovalue-tools"
 release_version = "1.0.2"
 
 template_project_id = "datatovalue-tools"
-template_dataset_id = "us"
+template_dataset_id = "eu"
 
 regions = [
   # -----------------------------------
@@ -65,6 +65,4 @@ regions = [
 
   "africa-south1", # Johannesburg, South Africa     
   "me-west1"       # Tel Aviv	
-
-
 ]
