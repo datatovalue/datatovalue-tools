@@ -93,7 +93,7 @@ The `unique_combination_multi_query` is used to validate whether different combi
 
 Argument | Data Type | Description
 --- | --- | ---
-`ARRAY<STRUCT<table_id STRING, column_names ARRAY<STRING>>>` | Struct array of inputs containing multiple `table_id` and `column_names` combinations.
+table_column_combinations | `ARRAY<STRUCT<table_id STRING, column_names ARRAY<STRING>>>` | Struct array of inputs containing multiple `table_id` and `column_names` combinations.
 
 It can be executed using the following syntax:
 
@@ -110,4 +110,35 @@ SET table_column_combinations = [
 EXECUTE IMMEDIATE (
 SELECT `datatovalue-tools.us_west1.unique_combination_multi_query` (table_column_combinations)
 );
+```
+
+## metric_sum_query
+The `metric_sum_query` function enables tracing of metric sum values for specific numeric columns across all tables in multiple datasets.
+
+Argument | Data Type | Description
+--- | --- | ---
+project_id | STRING | The project ID in which table are located.
+region | STRING | The project ID in which table are located.
+dataset_names | ARRAY<STRING> | REQUIRED Dataset names in which tables are located.  This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in a null query.
+column_names | ARRAY<STRING> | Column names to include. This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in all columns being returned.
+rounding_digits | INT64 | The number of decimal places to which the result will be rounded. NULL value will default to 0 decimal places.)
+
+Note that the result of theis query is another SQL query, which must be executed to obtain the final result.
+
+```sql
+DECLARE project_id, region, query STRING;
+DECLARE dataset_names, column_names ARRAY<STRING>;
+DECLARE rounding_digits INT64;
+
+SET project_id = "project_a";
+SET region = "us-west1";
+SET dataset_names = ["dataset_prefix_%", "dataset_a", "dataset_b", "dataset_c"];
+SET column_names = ["column_prefix_%", "column_a", "column_b"];
+SET rounding_digits = 0;
+
+EXECUTE IMMEDIATE (
+SELECT `jwn-nmn-report-nonprod-6dpu.00_QA_dev`.metric_sum_query(project_id, region, dataset_names, column_names, rounding_digits )
+) INTO query;
+
+EXECUTE IMMEDIATE (query);
 ```

@@ -16,7 +16,7 @@ dataset_filter AS (
 column_filter AS (
   SELECT *
   FROM dataset_filter
-  WHERE column_name IN ('"""||IFNULL(ARRAY_TO_STRING(column_names, "', '"), "")||"""')
+  WHERE column_name LIKE ANY ('"""||IFNULL(ARRAY_TO_STRING(column_names, "', '"), "")||"""')
   ORDER BY model_id
   ),
 
