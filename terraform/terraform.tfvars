@@ -1,5 +1,9 @@
 project_id      = "datatovalue-tools"
 release_version = "1.0.2"
+
+template_project_id = "datatovalue-tools"
+template_dataset_id = "us"
+
 regions = [
   # -----------------------------------
   # Multi-Regions

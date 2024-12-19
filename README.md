@@ -7,10 +7,11 @@ The following functions are deployed in the **datatovalue-tools** Google Cloud p
 
 Function | Description
 --- | ---
+[table_date_partitions_query](functions.md#table_date_partitions_query) | Profiles table date partition existence across datasets and identies gaps
 [row_duplicate_query](functions.md#row_duplicate_query) | Flags exact duplicate rows in a table
-[unique_combination_query](functions.md#row_duplicate_query) | Computes uniqueness across sets of table columns
-[table_date_partitions_query](functions.md#row_duplicate_query) | Profiles table date partition existence across datasets and identies gaps
-[column_profile_query](functions.md#row_duplicate_query) | Profiles table column values for min/max/null counts
+[column_profile_query](functions.md#column_profile_query) | Profiles table column values for min/max/null counts
+[unique_combination_query](functions.md#unique_combination_query) | Computes uniqueness across sets of table columns
+[unique_combination_multi_query](functions.md#unique_combination_multi_query) | Computes uniqueness across sets of table columns for multiple table and column combinations
 
 ## Deployment
 
@@ -23,11 +24,11 @@ Functions receive arguments and return SQL, which can be executed in order to ob
 
 Action | Approach
 --- | ---
-View SQL | Invoke function via `SELECT` statement
-Execute SQL | `EXECUTE IMMEDIATE` function
-Save Results | `Save Results` from executed SQL via the user interface
-Create Table | Append DDL prefix string and `EXECUTE IMMEDIATE`
-Create View | Append DDL prefix string and `EXECUTE IMMEDIATE`
+[View SQL](#view-sql) | Invoke function via `SELECT` statement
+[Execute SQL](#execute-sql) | `EXECUTE IMMEDIATE` function
+[Save Results](#save-results) | `Save Results` from executed SQL via the user interface
+[Create Table](#create-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
+[Create View](#create-view) | Append DDL prefix string and `EXECUTE IMMEDIATE`
 
 ## Examples
 
@@ -45,7 +46,8 @@ To execute the query this can simply be wrapped in an `EXECUTE IMMEDIATE` statem
 
 ```sql
 EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a')
+);
 ```
 For syntactic clarity it is often desirable to explicitly define the `query` string variable and use the function to set the value.
 
@@ -75,7 +77,7 @@ EXECUTE IMMEDIATE (query);
 
 Note that options and partitioning/clustering can be also included here to customize the destination table properties.
 
-#### 5. Create View
+#### Create View
 To create a view (which makes the generated code available to edit), the syntax is analagous:
 
 ```sql
