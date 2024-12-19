@@ -9,12 +9,12 @@ Documentation is in the [functions](functions.md) section.
 
 Function | Description
 --- | ---
-[table_date_partitions_query](functions.md#table_date_partitions_query) | Profiles table date partition existence across datasets and identies gaps
+[table_date_partitions_query](functions.md#table_date_partitions_query) | Profiles table date partition existence across datasets and identifies gaps
 [row_duplicate_query](functions.md#row_duplicate_query) | Flags exact duplicate rows in a table
-[column_profile_query](functions.md#column_profile_query) | Profiles table column values for min/max/null counts
-[unique_combination_query](functions.md#unique_combination_query) | Computes uniqueness across sets of table columns
-[unique_combination_multi_query](functions.md#unique_combination_multi_query) | Computes uniqueness across sets of table columns for multiple table and column combinations
-[metric_sum_query](functions.md#metric_sum_query) | Computes metric sums across specific columns, tables and datasets in a single project.
+[column_profile_query](functions.md#column_profile_query) | Profiles table column values for min/max/null/distinct counts and ratios
+[unique_combination_query](functions.md#unique_combination_query) | Computes uniqueness of values across sets of table columns
+[unique_combination_multi_query](functions.md#unique_combination_multi_query) | Computes uniqueness of values across sets of table columns for multiple table and column combinations
+[metric_sum_query](functions.md#metric_sum_query) | Computes metric sums across specific columns, tables and datasets in a single project
 
 ## Deployment
 
@@ -22,8 +22,11 @@ Functions are live and deployed across in the `datatovalue-tools` BigQuery proje
 
 Functions are deployed using Terraform and function source code is version-controlled in separate sql files in the `terraform/functions` directory of the `datatovalue/datatovalue-tools` respository.
 
+## Permissions
+Functions can be used by any user with `BigQuery Data Viewer`, `BigQuery Data User` or higher.
+
 ## Usage
-Functions receive arguments and return SQL, which can be executed in order to obtain the desired result set, or used to create sql-defined resources. The following actions are achieved via these corresponding approaches:
+Functions receive arguments and return SQL which can be executed in order to obtain the desired result set, or used to create sql-defined resources. The following actions are achieved via these corresponding approaches:
 
 Action | Approach
 --- | ---
