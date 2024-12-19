@@ -3,7 +3,9 @@
 Data to Value Tools are BigQuery utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
 
 ## Functions
-The following functions are deployed in the **datatovalue-tools** Google Cloud project. Function documentation is [here](functions.md).
+The following functions are deployed in the **datatovalue-tools** Google Cloud project. 
+
+Documentation is in the [functions](functions.md) section.
 
 Function | Description
 --- | ---
@@ -12,6 +14,7 @@ Function | Description
 [column_profile_query](functions.md#column_profile_query) | Profiles table column values for min/max/null counts
 [unique_combination_query](functions.md#unique_combination_query) | Computes uniqueness across sets of table columns
 [unique_combination_multi_query](functions.md#unique_combination_multi_query) | Computes uniqueness across sets of table columns for multiple table and column combinations
+[metric_sum_query](functions.md#metric_sum_query) | Computes metric sums across specific columns, tables and datasets in a single project.
 
 ## Deployment
 
