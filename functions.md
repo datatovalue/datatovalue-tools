@@ -5,8 +5,8 @@ The `table_date_partitions_query` is used to validate date partition existence a
 
 Argument | Data Type | Description
 --- | --- | ---
-`project_id` | `STRING` | Fully signed ID of the table to be profiled.
-`dataset_names` | `ARRAY<STRING>` | An array containing the names of datasets to be profiled.
+`project_id` | STRING | Fully signed ID of the table to be profiled.
+`dataset_names` | ARRAY<STRING> | An array containing the names of datasets to be profiled.
 
 It can be executed using the following syntax:
 
@@ -28,7 +28,7 @@ The `row_duplicate_query` is used to identify duplicate rows in any table.
 
 Argument | Data Type | Description
 --- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
+`table_id` | STRING | Fully signed ID of the table to be profiled.
 
 It can be executed using the following syntax:
 
@@ -48,7 +48,7 @@ The `column_profile_query` is used compute column metrics such as minimum and ma
 
 Argument | Data Type | Description
 --- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
+`table_id` | STRING | Fully signed ID of the table to be profiled.
 
 Note that since this function needs to query the `INFORMATION_SCHEMA.COLUMNS` view to get the precise table columns, executing the returned query will return _another_ SQL query. This must in turn be executed in order to obtain the result.
 
@@ -71,8 +71,8 @@ The `unique_combination_query` is used to validate whether combinations of colum
 
 Argument | Data Type | Description
 --- | --- | ---
-`table_id` | `STRING` | Fully signed ID of the table to be profiled.
-`column_names` | `ARRAY<STRING>` | An array containing the names of columns to be profiled.
+`table_id` | STRING | Fully signed ID of the table to be profiled.
+`column_names` | ARRAY<STRING> | An array containing the names of columns to be profiled.
 
 It can be executed using the following syntax:
 
@@ -93,7 +93,7 @@ The `unique_combination_multi_query` is used to validate whether different combi
 
 Argument | Data Type | Description
 --- | --- | ---
-table_column_combinations | `ARRAY<STRUCT<table_id STRING, column_names ARRAY<STRING>>>` | Struct array of inputs containing multiple `table_id` and `column_names` combinations.
+`table_column_combinations` | ARRAY<STRUCT<table_id STRING, column_names ARRAY<STRING>>> | Struct array of inputs containing multiple `table_id` and `column_names` combinations.
 
 It can be executed using the following syntax:
 
@@ -118,12 +118,12 @@ The `metric_sum_query` function enables tracing of metric sum values for specifi
 Argument | Data Type | Description
 --- | --- | ---
 project_id | STRING | The project ID in which table are located.
-region | STRING | The project ID in which table are located.
-dataset_names | ARRAY<STRING> | REQUIRED Dataset names in which tables are located.  This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in a null query.
-column_names | ARRAY<STRING> | Column names to include. This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in all columns being returned.
-rounding_digits | INT64 | The number of decimal places to which the result will be rounded. NULL value will default to 0 decimal places.)
+`region` | STRING | The project ID in which table are located.
+`dataset_names` | ARRAY<STRING> | REQUIRED Dataset names in which tables are located.  This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in a null query.
+`column_names` | ARRAY<STRING> | Column names to include. This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in all columns being returned.
+`rounding_digits` | INT64 | The number of decimal places to which the result will be rounded. NULL value will default to 0 decimal places.)
 
-Note that the result of theis query is another SQL query, which must be executed to obtain the final result.
+Note that the result of this query is another SQL query, which must be executed to obtain the final result.
 
 ```sql
 DECLARE project_id, region, query STRING;
