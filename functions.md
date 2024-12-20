@@ -44,7 +44,7 @@ SELECT `datatovalue-tools.us_west1.row_duplicate_query` (table_id));
 The result will be the original table, with some additional metadata columns. The boolean column `duplicate_row_flag`  identifies duplicate rows in the data.
 
 ## column_profile_query
-The `column_profile_query` is used compute column metrics such as minimum and maximum values, null values and null percentage.
+The `column_profile_query` is used compute column metrics such as minimum and maximum values, null values, null percentage,  distinct value counts and uniqueness percentage.
 
 Argument | Data Type | Description
 --- | --- | ---
