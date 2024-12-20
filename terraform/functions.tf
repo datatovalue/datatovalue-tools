@@ -97,7 +97,7 @@ resource "google_bigquery_routine" "metric_sum_query" {
   arguments {
     name      = "region"
     data_type = jsonencode({ "typeKind" : "STRING" })
-  }  
+  }
   arguments {
     name      = "dataset_names"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
@@ -109,6 +109,6 @@ resource "google_bigquery_routine" "metric_sum_query" {
   arguments {
     name      = "rounding_digits"
     data_type = jsonencode({ "typeKind" : "INT64" })
-  }  
+  }
   definition_body = file("functions/metric_sum_query.sql")
 }
