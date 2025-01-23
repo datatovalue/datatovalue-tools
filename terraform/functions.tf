@@ -112,3 +112,4 @@ resource "google_bigquery_routine" "metric_sum_query" {
   }
   definition_body = file("functions/metric_sum_query.sql")
 }
+

@@ -18,7 +18,7 @@ SET project_id = 'project_a';
 SET dataset_names = ['dataset_a', 'dataset_b', 'dataset_c'];
 
 EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.us_west1.table_partitions_query` (          
+SELECT `datatovalue-tools.us_west1.table_date_partitions_query` (          
 project_id, 
 dataset_names));
 ```
@@ -60,7 +60,7 @@ DECLARE table_id, query STRING;
 SET table_id = 'project_a.dataset_a.table_a';
 
 EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.us_west1.table_partitions_query` (project_id, dataset_names)
+SELECT `datatovalue-tools.us_west1.column_profile_query` (table_id)
 ) INTO query;
 
 EXECUTE IMMEDIATE (query);

@@ -22,3 +22,8 @@ variable "template_dataset_id" {
   type        = string
   description = "The name of the dataset used for SQL teamplates."
 }
+
+variable "template_region" {
+  type        = string
+  description = "The name of the region used for SQL teamplates."
+}
