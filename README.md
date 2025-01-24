@@ -1,10 +1,10 @@
 # infoschema functions
 
-The `infoschema` functions make BigQuery [INFORMATION SCHEMA](https://cloud.google.com/bigquery/docs/information-schema-intro) metadata available to call via parameterised table functions, without requiring hard-coding of region, project, dataset or table identifier. This enables them to be used in programmatic metadata-driven use-cases such as data profiling, monitoring and templated dashboard development.
+The `infoschema` functions make BigQuery [INFORMATION SCHEMA](https://cloud.google.com/bigquery/docs/information-schema-intro) metadata accessible via parameterised table functions, without requiring hard-coding of region, project, dataset or table identifiers. This enables them to be used in programmatic metadata-driven use-cases such as data profiling, monitoring and templated dashboard development.
 
-Functions are availble in all Google Cloud regions. Note that in the examples below, the `my_region` placeholder needs to be replaced with a region identifier from any [BigQuery region](https://cloud.google.com/bigquery/docs/locations#regions). 
+Functions are available in all Google Cloud regions. Note that in the examples below, the `my_region` placeholder needs to be replaced with a region identifier from any [BigQuery region](https://cloud.google.com/bigquery/docs/locations#regions). 
 
-All columns are retained from the associated `INFORMATION_SCHEMA` view, with an additional `id` added as the first column based on the metadata granularity of the response (i.e. `dataset_id` or `table_id`) for ease of subsequent manipulation. Data types and structures are corrected where necessary, and column names for projects, datasets and tables are standardised to `project_id`, `dataset_name` and `table_name`. 
+All columns are retained from the associated `INFORMATION_SCHEMA` view, with an additional `id` added as the first column based on the metadata granularity of the response (i.e. `dataset_id` or `table_id`) for ease of subsequent manipulation and integration. Data types and structures are corrected where necessary, and column names for projects, datasets and tables are standardised to `project_id`, `dataset_name` and `table_name`. 
 
 - `dataset_id` = `project_id.dataset_name`
 - `project_id` = `project_id.dataset_name.table_name`.
