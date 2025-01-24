@@ -10,7 +10,7 @@ resource "google_bigquery_routine" "columns_query" {
     name      = "dataset_ids"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
   }
-  definition_body = file("infoschema_queries/column_field_paths_query.sql")
+  definition_body = file("infoschema_queries/columns_query.sql")
 }
 
 resource "google_bigquery_routine" "column_field_paths_query" {
@@ -25,7 +25,7 @@ resource "google_bigquery_routine" "column_field_paths_query" {
     name      = "dataset_ids"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
   }
-  definition_body = file("infoschema_queries/columns_query.sql")
+  definition_body = file("infoschema_queries/column_field_paths_query.sql")
 }
 
 resource "google_bigquery_routine" "datasets_query" {
@@ -101,4 +101,23 @@ resource "google_bigquery_routine" "tables_query" {
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
   }
   definition_body = file("infoschema_queries/tables_query.sql")
+}
+
+resource "google_bigquery_routine" "table_storage_query" {
+  project      = var.project_id
+  for_each     = toset(var.regions)
+  dataset_id   = replace(each.value, "-", "_")
+  routine_id   = "table_storage_query"
+  routine_type = "SCALAR_FUNCTION"
+  description  = "infoschema.table_storage query generator v${var.release_version}"
+  language     = "SQL"
+  arguments {
+    name      = "project_id"
+    data_type = jsonencode({ typeKind = "STRING" })
+  }
+  arguments {
+    name      = "region"
+    data_type = jsonencode({ typeKind = "STRING" })
+  }
+  definition_body = file("infoschema_queries/table_storage_query.sql")
 }

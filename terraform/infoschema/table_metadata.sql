@@ -21,9 +21,9 @@ parse_source_json AS (
 add_additional_fields AS (
   SELECT *,
   TIMESTAMP_MILLIS(creation_time) AS creation_timestamp,
-  TIMESTAMP_MILLIS(last_modified_time) AS last_modified_timestamp
-  FROM parse_source_json
-)
+  TIMESTAMP_MILLIS(last_modified_time) AS last_modified_timestamp,
+  SAFE_DIVIDE(size_bytes, POW(1024, 3)) AS size_gib
+  FROM parse_source_json)
 
 
 SELECT *

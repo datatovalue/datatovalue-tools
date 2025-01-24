@@ -6,11 +6,11 @@ get_source_json AS (
 parse_source_json AS (
   SELECT 
   JSON_VALUE(row, "$.table_catalog")||'.'||JSON_VALUE(row, "$.table_schema")||'.'||JSON_VALUE(row, "$.table_name") AS table_id,
-  JSON_VALUE(row, "$.table_catalog") AS table_catalog,
-  JSON_VALUE(row, "$.table_schema") AS table_schema,
+  JSON_VALUE(row, "$.table_catalog") AS project_id,
+  JSON_VALUE(row, "$.table_schema") AS dataset_name,
   JSON_VALUE(row, "$.table_name") AS table_name,
-  JSON_VALUE(row, "$.activity_date_pacific") AS activity_date_pacific,
-  JSON_VALUE(row, "$.ordinal_position") AS ordinal_position,
+  JSON_VALUE(row, "$.column_name") AS column_name,
+  SAFE_CAST(JSON_VALUE(row, "$.ordinal_position") AS INT64) AS ordinal_position,
   JSON_VALUE(row, "$.is_nullable") AS is_nullable,
   JSON_VALUE(row, "$.data_type") AS data_type,
   JSON_VALUE(row, "$.is_generated") AS is_generated,

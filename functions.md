@@ -117,9 +117,9 @@ The `metric_sum_query` function enables tracing of metric sum values for specifi
 
 Argument | Data Type | Description
 --- | --- | ---
-project_id | STRING | The project ID in which table are located.
-`region` | STRING | The project ID in which table are located.
-`dataset_names` | ARRAY<STRING> | REQUIRED Dataset names in which tables are located.  This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in a null query.
+`project_id` | STRING | The project ID in which tables are located.
+`region` | STRING | The region in which tables are located.
+`dataset_names` | ARRAY<STRING> | Dataset names in which tables are located.  This argument supports LIKE matching using the '%' wildcard. A NULL or empty array will result in a null query.
 `column_names` | ARRAY<STRING> | Column names to include. This argument supports LIKE matching using the '%' wildcard. NULL or empty array will result in all columns being returned.
 `rounding_digits` | INT64 | The number of decimal places to which the result will be rounded. NULL value will default to 0 decimal places.)
 

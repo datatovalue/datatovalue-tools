@@ -102,3 +102,18 @@ resource "google_bigquery_routine" "tables" {
   }
   definition_body = file("infoschema/tables.sql")
 }
+
+resource "google_bigquery_routine" "table_storage" {
+  project      = var.project_id
+  for_each     = toset(var.regions)
+  dataset_id   = replace(each.value, "-", "_")
+  routine_id   = "table_storage"
+  routine_type = "TABLE_VALUED_FUNCTION"
+  description  = "infoschema.table_storage table function v${var.release_version}"
+  language     = "SQL"
+  arguments {
+    name      = "table_storage_json"
+    data_type = jsonencode({ "typeKind" : "JSON" })
+  }
+  definition_body = file("infoschema/table_storage.sql")
+}
