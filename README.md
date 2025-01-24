@@ -1,113 +1,171 @@
-# datatovalue-tools
+# infoschema functions
 
-Data to Value Tools are BigQuery utility functions to support data profiling, debugging and root-cause analysis in data transformation and management.
+The `infoschema` functions make BigQuery [INFORMATION SCHEMA](https://cloud.google.com/bigquery/docs/information-schema-intro) metadata available to call via parameterised table functions, without requiring hard-coding of region, project, dataset or table identifier. This enables them to be used in programmatic metadata-driven use-cases such as data profiling, monitoring and templated dashboard development.
 
-## Functions
-The following functions are deployed in the **datatovalue-tools** Google Cloud project. 
+Functions are availble in all Google Cloud regions. Note that in the examples below, the `my_region` placeholder needs to be replaced with a region identifier from any [BigQuery region](https://cloud.google.com/bigquery/docs/locations#regions). 
 
-Documentation is in the [functions](functions.md) section.
+All columns are retained from the associated `INFORMATION_SCHEMA` view, with an additional `id` added as the first column based on the metadata granularity of the response (i.e. `dataset_id` or `table_id`) for ease of subsequent manipulation. Data types and structures are corrected where necessary, and column names for projects, datasets and tables are standardised to `project_id`, `dataset_name` and `table_name`. 
 
-Function | Description
---- | ---
-[table_date_partitions_query](functions.md#table_date_partitions_query) | Profiles table date partition existence across datasets and identifies gaps
-[row_duplicate_query](functions.md#row_duplicate_query) | Flags exact duplicate rows in a table
-[column_profile_query](functions.md#column_profile_query) | Profiles table column values for min/max/null/distinct counts and ratios
-[unique_combination_query](functions.md#unique_combination_query) | Computes uniqueness of values across sets of table columns
-[unique_combination_multi_query](functions.md#unique_combination_multi_query) | Computes uniqueness of values across sets of table columns for multiple table and column combinations
-[metric_sum_query](functions.md#metric_sum_query) | Computes metric sums across specific columns, tables and datasets in a single project
+- `dataset_id` = `project_id.dataset_name`
+- `project_id` = `project_id.dataset_name.table_name`.
 
-## Deployment
+Additional fields are added in the following scenarios:
+- Unix timestamp fields have a `TIMESTAMP` equivalent field added.
+- Bytes values have a GiB field added (divided by $1024^3$).
+- Labels are converted to a JSON object, which can be queried directly using the label key: `SELECT JSON_VALUE(label_column, '$label_key') AS label key`.
 
-Functions are live and deployed across in the `datatovalue-tools` BigQuery project for all global regions and multi-regions. Deployment regions are set via the `regions` variable in the [terraform.tfvars](https://github.com/datatovalue/datatovalue-tools/blob/main/terraform/terraform.tfvars) file and builld and deploy to the corresponding geographic dataset in the `datatovalue-tools` BigQuery project. Note that the dataset names contain unserscores instead of dashes.
+## Function Reference
+### infoschema.datasets
+This is a functional implementation of the [INFORMATION_SCHEMA.SCHEMATA](https://cloud.google.com/bigquery/docs/information-schema-datasets-schemata) view.
 
-Functions are deployed using Terraform and function source code is version-controlled in separate sql files in the `terraform/functions` directory of the `datatovalue/datatovalue-tools` respository.
+Argument | Data Type | Description
+--- | --- | ---
+`region` | `STRING` | The region from which to retrieve dataset-level metadata
 
-## Permissions
-Functions can be used by any user with `BigQuery Data Viewer`, `BigQuery Data User` or higher.
+```sql 
+DECLARE region, datasets_query STRING;
+DECLARE datasets_json JSON;
 
-## Usage
-Functions receive arguments and return SQL which can be executed in order to obtain the desired result set, or used to create sql-defined resources. The following actions are achieved via these corresponding approaches:
+SET region = "my_region" ; 
 
-Action | Approach
---- | ---
-[View SQL](#view-sql) | Invoke function via `SELECT` statement
-[Execute SQL](#execute-sql) | `EXECUTE IMMEDIATE` function
-[Save Results](#save-results) | `Save Results` from executed SQL via the user interface
-[Create Table](#create-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
-[Create Temporary Table](#create-temporary-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
-[Create View](#create-view) | Append DDL prefix string and `EXECUTE IMMEDIATE`
-
-## Examples
-
-The following examples assume that the source data is in the `us-west1` region for the `row_duplicate_query` function. For data in different regions simply replace the `us-west1` with the appropriate region identifier and the function invocation code with the desired function name and appropriate arguments.
-
-### View SQL
-In order to view the SQL which has been generated, use a simple `SELECT` statement and pass the `table_id`:
-
-```sql
-SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a');
+SET datasets_query = (SELECT `datatovalue-tools.my_region`.datasets_query(region));
+EXECUTE IMMEDIATE (datasets_query) INTO datasets_json;
+SELECT * FROM `datatovalue-tools.my_region`.datasets(datasets_json);
 ```
 
-### Execute SQL
-To execute the query this can simply be wrapped in an `EXECUTE IMMEDIATE` statement:
+### infoschema.tables
+This is a functional implementation of the [INFORMATION_SCHEMA.TABLES](https://cloud.google.com/bigquery/docs/information-schema-tables) view.
+
+Argument | Data Type | Description
+--- | --- | ---
+`dataset_ids` | `ARRAY<STRING>` | The datasets from which to retrieve table-level metadata.
 
 ```sql
-EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a')
-);
+DECLARE dataset_ids ARRAY<STRING>;
+DECLARE tables_query STRING; 
+DECLARE tables_json JSON;
+
+SET dataset_ids = ["dataset_id_a", "dataset_id_b", ... ];
+
+SET tables_query = (SELECT `datatovalue-tools.my_region`.tables_query(dataset_ids));
+EXECUTE IMMEDIATE (tables_query) INTO tables_json;
+SELECT * FROM `datatovalue-tools.my_region`.tables(tables_json);  
 ```
-For syntactic clarity it is often desirable to explicitly define the `query` string variable and use the function to set the value.
+
+### infoschema.table_metadata
+This is a functional implementation of the BigQuery `__TABLES__` metadata view.
+
+Argument | Data Type | Description
+--- | --- | ---
+`dataset_ids` | `ARRAY<STRING>` | The datasets from which to retrieve table-level metadata.
 
 ```sql
-DECLARE query STRING;
+DECLARE dataset_ids ARRAY<STRING>;
+DECLARE table_metadata_query STRING; 
+DECLARE table_metadata_json JSON;
 
-SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+SET dataset_ids = ["dataset_id_a", "dataset_id_b", ... ];
 
-EXECUTE IMMEDIATE (query);
+SET table_metadata_query = (SELECT `datatovalue-tools.my_region`.table_metadata_query(dataset_ids));
+EXECUTE IMMEDIATE (table_metadata_query) INTO table_metadata_json;     
+SELECT * FROM `datatovalue-tools.my_region`.table_metadata(table_metadata_json);
 ```
 
-### Save Results
-This result can then be saved as a table by clicking on `Save Results` in the user interface. 
+### infoschema.table_options
+This is a functional implementation of the [INFORMATION_SCHEMA.TABLE_OPTIONS](https://cloud.google.com/bigquery/docs/information-schema-table-options) view. The reponse is restructured from key-value pairs into columns for ease of subsequent manipulation.
 
-### Create Table
-To create the table in one statement, simple append the required DDL to the beginning of the query and use the `EXECUTE IMMEDIATE` statement on the combined query:
+Argument | Data Type | Description
+--- | --- | ---
+`dataset_ids` | `ARRAY<STRING>` | The datasets from which to retrieve table-level metadata.
 
 ```sql
-DECLARE query STRING;
+DECLARE dataset_ids ARRAY<STRING>;
+DECLARE table_options_query STRING; 
+DECLARE table_options_json JSON;
 
-SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+SET dataset_ids = ["dataset_id_a", "dataset_id_b", ... ];
 
-SET query = "CREATE OR REPLACE TABLE `project_a.dataset_a.new_table` AS "||query;
-
-EXECUTE IMMEDIATE (query);
+SET table_options_query = (SELECT `datatovalue-tools.my_region`.table_options_query(dataset_ids));
+EXECUTE IMMEDIATE (table_options_query) INTO table_options_json;
+SELECT * FROM `datatovalue-tools.my_region`.table_options(table_options_json);
 ```
 
-Note that options and partitioning/clustering can be also included here to customize the destination table properties.
+### infoschema.table_storage
+This is a functional implementation of the [INFORMATION_SCHEMA.TABLE_STORAGE](https://cloud.google.com/bigquery/docs/information-schema-table-storage) view.
 
-### Create Temporary Table
-To create the temporary table in one statement, simple append the required DDL to the beginning of the query and use the `EXECUTE IMMEDIATE` statement on the combined query:
+Argument | Data Type | Description
+--- | --- | ---
+`project_id` | `STRING` | The project from which to retrieve table-level storage metadata.
+`region` | `STRING` | The region from which to retrieve table-level storage metadata.
 
 ```sql
-DECLARE query STRING;
+DECLARE region, project_id, table_storage_query STRING;
+DECLARE table_storage_json JSON;
 
-SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+SET project_id = "my_project_id";
+SET region = "my_region";
 
-SET query = "CREATE OR REPLACE TEMP TABLE `temp_table_name` AS "||query;
-
-EXECUTE IMMEDIATE (query);
+SET table_storage_query = (SELECT `datatovalue-tools.my_region`.table_storage_query(project_id, region));
+EXECUTE IMMEDIATE (table_storage_query) INTO table_storage_json;
+SELECT * FROM `datatovalue-tools.my_region`.table_storage(table_storage_json);
 ```
 
-Now the temporary table can be referenced by alias for the duration of the session.
+### infoschema.partitions
+This is a functional implementation of the [INFORMATION_SCHEMA.PARTITIONS](https://cloud.google.com/bigquery/docs/information-schema-partitions) view. 
 
-#### Create View
-To create a view (which makes the generated code available to edit), the syntax is analagous:
+Argument | Data Type | Description
+--- | --- | ---
+`table_ids` | `ARRAY<STRING>` | The tables from which to retrieve partition-level metadata.
 
 ```sql
-DECLARE query STRING;
+DECLARE table_ids ARRAY<STRING>;
+DECLARE partitions_query STRING; 
+DECLARE partitions_json JSON;
 
-SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
+SET table_ids = ["table_id_a", "table_id_b", ... ];
 
-SET query = "CREATE OR REPLACE VIEW `project_a.dataset_a.new_table` AS "||query;
-
-EXECUTE IMMEDIATE (query);
+SET partitions_query = (SELECT `datatovalue-tools.`.partitions_query(table_ids));
+EXECUTE IMMEDIATE (partitions_query) INTO partitions_json;
+SELECT * FROM `datatovalue-tools.us_west1`.partitions(partitions_json);
 ```
+
+### infoschema.columns
+This is a functional implementation of the [INFORMATION_SCHEMA.COLUMNS](https://cloud.google.com/bigquery/docs/information-schema-columns) view. 
+
+Argument | Data Type | Description
+--- | --- | ---
+`dataset_ids` | `ARRAY<STRING>` | The datasets from which to retrieve column-level metadata.
+
+```sql
+DECLARE dataset_ids ARRAY<STRING>;
+DECLARE columns_query STRING; 
+DECLARE columns_json JSON;
+
+SET dataset_ids = ["dataset_id_a", "dataset_id_b", ... ];
+
+SET columns_query = (SELECT `datatovalue-tools.my_region`.columns_query(dataset_ids));
+EXECUTE IMMEDIATE (columns_query) INTO columns_json;
+SELECT * FROM `datatovalue-tools.my_region`.columns(columns_json);
+```
+
+### infoschema.column_field_paths
+This is a functional implementation of the [INFORMATION_SCHEMA.COLUMN_FIELD_PATHS](https://cloud.google.com/bigquery/docs/information-schema-columns) view. 
+
+Argument | Data Type | Description
+--- | --- | ---
+`dataset_ids` | `ARRAY<STRING>` | The datasets from which to retrieve column-level metadata.
+
+```sql
+DECLARE dataset_ids ARRAY<STRING>;
+DECLARE column_field_paths_query STRING; 
+DECLARE column_field_paths_json JSON;
+
+SET dataset_ids = ["dataset_id_a", "dataset_id_b", ... ];
+
+SET column_field_paths_query = (SELECT `datatovalue-tools.my_region`.column_field_paths_query(dataset_ids));
+EXECUTE IMMEDIATE (column_field_paths_query) INTO column_field_paths_json;
+SELECT * FROM `datatovalue-tools.my_region`.column_field_paths(column_field_paths_json);
+```
+
+
+
