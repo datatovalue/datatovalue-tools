@@ -124,9 +124,9 @@ DECLARE partitions_json JSON;
 
 SET table_ids = ["table_id_a", "table_id_b", ... ];
 
-SET partitions_query = (SELECT `datatovalue-tools.`.partitions_query(table_ids));
+SET partitions_query = (SELECT `datatovalue-tools.my_region`.partitions_query(table_ids));
 EXECUTE IMMEDIATE (partitions_query) INTO partitions_json;
-SELECT * FROM `datatovalue-tools.us_west1`.partitions(partitions_json);
+SELECT * FROM `datatovalue-tools.my_region`.partitions(partitions_json);
 ```
 
 ### infoschema.columns
