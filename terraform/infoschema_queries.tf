@@ -115,9 +115,5 @@ resource "google_bigquery_routine" "table_storage_query" {
     name      = "project_id"
     data_type = jsonencode({ typeKind = "STRING" })
   }
-  arguments {
-    name      = "region"
-    data_type = jsonencode({ typeKind = "STRING" })
-  }
-  definition_body = file("infoschema_queries/table_storage_query.sql")
+  definition_body = replace(file("infoschema_queries/table_storage_query.sql"), "region-${var.template_region}", "region-${replace(each.value, "-", "_")}")
 }

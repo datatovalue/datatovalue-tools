@@ -1,7 +1,7 @@
 (WITH
 source_query AS (
   SELECT 
-  FORMAT("SELECT * FROM `%s.region-%s`.INFORMATION_SCHEMA.TABLE_STORAGE", project_id, region) AS query),
+  FORMAT("SELECT * FROM `%s.region-eu`.INFORMATION_SCHEMA.TABLE_STORAGE", project_id) AS query),
 
 base_query AS (
   SELECT 
