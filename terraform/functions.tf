@@ -82,13 +82,13 @@ resource "google_bigquery_routine" "unique_combination_multi_query" {
   definition_body = replace(file("functions/unique_combination_multi_query.sql"), "${var.template_project_id}.${var.template_dataset_id}", "${var.project_id}.${replace(each.value, "-", "_")}")
 }
 
-resource "google_bigquery_routine" "metric_sum_query" {
+resource "google_bigquery_routine" "metric_trace_sum_query" {
   project      = var.project_id
   for_each     = toset(var.regions)
   dataset_id   = replace(each.value, "-", "_")
-  routine_id   = "metric_sum_query"
+  routine_id   = "metric_trace_sum_query"
   routine_type = "SCALAR_FUNCTION"
-  description  = "metric_sum_query generator v${var.release_version}"
+  description  = "metric_trace_sum_query generator v${var.release_version}"
   language     = "SQL"
   arguments {
     name      = "project_id"
@@ -110,6 +110,6 @@ resource "google_bigquery_routine" "metric_sum_query" {
     name      = "rounding_digits"
     data_type = jsonencode({ "typeKind" : "INT64" })
   }
-  definition_body = file("functions/metric_sum_query.sql")
+  definition_body = file("functions/metric_trace_sum_query.sql")
 }
 

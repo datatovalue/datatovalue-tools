@@ -10,11 +10,34 @@ All columns are retained from the associated `INFORMATION_SCHEMA` view, with an 
 - `project_id` = `project_id.dataset_name.table_name`.
 
 Additional fields are added in the following scenarios:
+
 - Unix timestamp fields have a `TIMESTAMP` equivalent field added.
 - Bytes values have a GiB field added (divided by $1024^3$).
 - Labels are converted to a JSON object, which can be queried directly using the label key: `SELECT JSON_VALUE(label_column, '$label_key') AS label key`.
 
 ## Function Reference
+
+### Query Options
+Where functions include the JSON argument `query_options`, the following options can be set:
+
+JSON Path | Data Type | Description
+--- | --- | ---
+`where_clause` | `STRING` | Optional WHERE clause to filter response rows
+`except_columns` | `ARRAY<STRING>` | Column values to exclude from the reponse
+
+For example, the following `query_options` structure would exclude the `project_number` column and filter rows for where the `table_schema` (`dataset_name`) begins with "00":
+
+```sql
+SET query_options = JSON """
+{
+  "where_clause": "WHERE table_schema LIKE '00%'", 
+  "except_columns": ["project_number"]
+}
+""";
+```
+
+Note that the column _will_ still be present in the output from the table function, however it will contain null values.
+
 ### infoschema.datasets
 This is a functional implementation of the [INFORMATION_SCHEMA.SCHEMATA](https://cloud.google.com/bigquery/docs/information-schema-datasets-schemata) view.
 
@@ -96,7 +119,7 @@ This is a functional implementation of the [INFORMATION_SCHEMA.TABLE_STORAGE](ht
 Argument | Data Type | Description
 --- | --- | ---
 `project_id` | `STRING` | The project from which to retrieve table-level storage metadata.
-`region` | `STRING` | The region from which to retrieve table-level storage metadata.
+`query_options` | `JSON` | The region from which to retrieve table-level storage metadata.
 
 ```sql
 DECLARE region, project_id, table_storage_query STRING;
