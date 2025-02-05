@@ -6,8 +6,8 @@ get_source_json AS (
 parse_source_json AS (
   SELECT 
   JSON_VALUE(row, "$.table_catalog")||'.'||JSON_VALUE(row, "$.table_schema")||'.'||JSON_VALUE(row, "$.table_name") AS table_id,
-  JSON_VALUE(row, "$.table_catalog") AS table_catalog,
-  JSON_VALUE(row, "$.table_schema") AS table_schema,
+  JSON_VALUE(row, "$.table_catalog") AS project_id,
+  JSON_VALUE(row, "$.table_schema") AS dataset_name,
   JSON_VALUE(row, "$.table_name") AS table_name,
   SAFE_CAST(JSON_VALUE(row, "$.partition_id") AS INT64) AS partition_id,
   SAFE_CAST(JSON_VALUE(row, "$.total_rows") AS INT64) AS total_rows,

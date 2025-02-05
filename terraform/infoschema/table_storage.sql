@@ -6,7 +6,7 @@ get_source_json AS (
 parse_source_json AS (
   SELECT
   JSON_VALUE(row, "$.project_number") AS project_number,
-  JSON_VALUE(row, "$.table_schema") AS project_id,
+  JSON_VALUE(row, "$.project_id") AS project_id,
   JSON_VALUE(row, "$.table_schema") AS dataset_name,
   JSON_VALUE(row, "$.table_name") AS table_name,
   SAFE_CAST(JSON_VALUE(row, "$.creation_time") AS TIMESTAMP) AS creation_time,
