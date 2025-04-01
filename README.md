@@ -189,6 +189,3 @@ SET column_field_paths_query = (SELECT `datatovalue-tools.my_region`.column_fiel
 EXECUTE IMMEDIATE (column_field_paths_query) INTO column_field_paths_json;
 SELECT * FROM `datatovalue-tools.my_region`.column_field_paths(column_field_paths_json);
 ```
-
-
-
