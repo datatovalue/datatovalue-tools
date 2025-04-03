@@ -1,4 +1,3 @@
-("""
 // Parse the JSON schema
 const schema = JSON.parse(input_schema);
 
@@ -73,7 +72,6 @@ sqlParts.push(`${sql} AS \`${field.name}\``);
 }
 
 // Combine all parts into a SELECT statement
-const finalSQL = `SELECT\n  ${sqlParts.join(',\n  ')}\n`;
+const finalSQL = `SELECT AS STRUCT\n  ${sqlParts.join(',\n  ')}\n`;
 
 return finalSQL;
-""")
