@@ -1,6 +1,6 @@
 # datatovalue-tools
 
-Data to Value Tools are BigQuery utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. They are developed and manitained by the Engineering Team at [Data to Value](https://datatovalue.com/) and are licensed under Apache 2.0.
+Data to Value Tools are BigQuery utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. They are developed and manitained by the Engineering Team at [Data to Value](https://datatovalue.com/) and are licensed under Apache 2.0. If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
 
 ## Functions
 The following sets of functions are deployed in the **datatovalue-tools** Google Cloud project, across all available regions.
