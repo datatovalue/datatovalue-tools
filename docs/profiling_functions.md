@@ -1,7 +1,7 @@
 # Profiling Functions
 These functions support data quality assurance activities by modelling, integrating and analysing table contents and metadata.
 
-## table_date_partitions_query
+### table_date_partitions_query
 The `table_date_partitions_query` is used to validate date partition existence across all tables in a single project, across multiple datasets. It also flags tables where there are gaps in the existing date partitions and identifies specific missing dates.
 
 Argument | Data Type | Description
@@ -24,7 +24,7 @@ project_id,
 dataset_names));
 ```
 
-## row_duplicate_query
+### row_duplicate_query
 The `row_duplicate_query` is used to identify duplicate rows in any table.
 
 Argument | Data Type | Description
@@ -44,7 +44,7 @@ SELECT `datatovalue-tools.us_west1.row_duplicate_query` (table_id));
 
 The result will be the original table, with some additional metadata columns. The boolean column `duplicate_row_flag`  identifies duplicate rows in the data.
 
-## column_profile_query
+### column_profile_query
 The `column_profile_query` is used compute column metrics such as minimum and maximum values, null values, null percentage,  distinct value counts and uniqueness percentage.
 
 Argument | Data Type | Description
@@ -67,7 +67,7 @@ SELECT `datatovalue-tools.us_west1.column_profile_query` (table_id)
 EXECUTE IMMEDIATE (query);
 ```
 
-## unique_combination_query
+### unique_combination_query
 The `unique_combination_query` is used to validate whether combinations of columns are unique in any table. This supports validation of granularity assumptions and unique key development, testing and monitoring.
 
 Argument | Data Type | Description
@@ -89,7 +89,7 @@ SELECT `datatovalue-tools.us_west1.unique_combination_query` (table_id, column_n
 );
 ```
 
-## unique_combination_multi_query
+### unique_combination_multi_query
 The `unique_combination_multi_query` is used to validate whether different combinations of columns are unique across multiple tables. This supports validation of granularity assumptions and unique key development, testing and monitoring, and is an extension of the `unique_combination_query` function.
 
 Argument | Data Type | Description
@@ -113,7 +113,7 @@ SELECT `datatovalue-tools.us_west1.unique_combination_multi_query` (table_column
 );
 ```
 
-## metric_sum_query
+### metric_sum_query
 The `metric_sum_query` function enables tracing of metric sum values for specific numeric columns across all tables in multiple datasets.
 
 Argument | Data Type | Description
