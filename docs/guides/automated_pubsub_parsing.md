@@ -7,7 +7,7 @@ In this real-world code example, five different event types of interest in are b
 DECLARE schema, deployed_parser_dataset_id, deployment_script STRING;
 DECLARE event_names ARRAY<STRING>;
 
-SET event_names = ["generate_lead", "call_booked", "generate_lead_gads_request", "staffing_request.created", "organization.created"];
+SET event_names = ["call_booked", "form_complete", "purchase", "account_created"];
 SET deployed_parser_dataset_id = "project_id.sgtm_monitor";
 
 FOR event IN (SELECT value FROM UNNEST(event_names) AS value)
