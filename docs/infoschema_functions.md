@@ -38,7 +38,7 @@ SET query_options = JSON """
 
 Note that the column _will_ still be present in the output from the table function, however it will contain null values.
 
-### infoschema.datasets
+### datasets
 This is a functional implementation of the [INFORMATION_SCHEMA.SCHEMATA](https://cloud.google.com/bigquery/docs/information-schema-datasets-schemata) view.
 
 Argument | Data Type | Description
@@ -56,7 +56,7 @@ EXECUTE IMMEDIATE (datasets_query) INTO datasets_json;
 SELECT * FROM `datatovalue-tools.my_region`.datasets(datasets_json);
 ```
 
-### infoschema.tables
+### tables
 This is a functional implementation of the [INFORMATION_SCHEMA.TABLES](https://cloud.google.com/bigquery/docs/information-schema-tables) view.
 
 Argument | Data Type | Description
@@ -75,7 +75,7 @@ EXECUTE IMMEDIATE (tables_query) INTO tables_json;
 SELECT * FROM `datatovalue-tools.my_region`.tables(tables_json);  
 ```
 
-### infoschema.table_metadata
+### table_metadata
 This is a functional implementation of the BigQuery `__TABLES__` metadata view.
 
 Argument | Data Type | Description
@@ -94,7 +94,7 @@ EXECUTE IMMEDIATE (table_metadata_query) INTO table_metadata_json;
 SELECT * FROM `datatovalue-tools.my_region`.table_metadata(table_metadata_json);
 ```
 
-### infoschema.table_options
+### table_options
 This is a functional implementation of the [INFORMATION_SCHEMA.TABLE_OPTIONS](https://cloud.google.com/bigquery/docs/information-schema-table-options) view. The reponse is restructured from key-value pairs into columns for ease of subsequent manipulation.
 
 Argument | Data Type | Description
@@ -113,7 +113,7 @@ EXECUTE IMMEDIATE (table_options_query) INTO table_options_json;
 SELECT * FROM `datatovalue-tools.my_region`.table_options(table_options_json);
 ```
 
-### infoschema.table_storage
+### table_storage
 This is a functional implementation of the [INFORMATION_SCHEMA.TABLE_STORAGE](https://cloud.google.com/bigquery/docs/information-schema-table-storage) view.
 
 Argument | Data Type | Description
@@ -133,7 +133,7 @@ EXECUTE IMMEDIATE (table_storage_query) INTO table_storage_json;
 SELECT * FROM `datatovalue-tools.my_region`.table_storage(table_storage_json);
 ```
 
-### infoschema.partitions
+### partitions
 This is a functional implementation of the [INFORMATION_SCHEMA.PARTITIONS](https://cloud.google.com/bigquery/docs/information-schema-partitions) view. 
 
 Argument | Data Type | Description
@@ -152,7 +152,7 @@ EXECUTE IMMEDIATE (partitions_query) INTO partitions_json;
 SELECT * FROM `datatovalue-tools.my_region`.partitions(partitions_json);
 ```
 
-### infoschema.columns
+### columns
 This is a functional implementation of the [INFORMATION_SCHEMA.COLUMNS](https://cloud.google.com/bigquery/docs/information-schema-columns) view. 
 
 Argument | Data Type | Description
@@ -171,7 +171,7 @@ EXECUTE IMMEDIATE (columns_query) INTO columns_json;
 SELECT * FROM `datatovalue-tools.my_region`.columns(columns_json);
 ```
 
-### infoschema.column_field_paths
+### column_field_paths
 This is a functional implementation of the [INFORMATION_SCHEMA.COLUMN_FIELD_PATHS](https://cloud.google.com/bigquery/docs/information-schema-columns) view. 
 
 Argument | Data Type | Description
