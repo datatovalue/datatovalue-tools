@@ -1,4 +1,5 @@
-# Functions
+# Profiling Functions
+These functions support data quality assurance activities by modelling, integrating and analysing table contents and metadata.
 
 ## table_date_partitions_query
 The `table_date_partitions_query` is used to validate date partition existence across all tables in a single project, across multiple datasets. It also flags tables where there are gaps in the existing date partitions and identifies specific missing dates.
