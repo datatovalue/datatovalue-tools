@@ -1,7 +1,7 @@
 # Advanced Guide
 ## Automatic PubSub Payload Parsing
 
-In this real-world code example, five different event types of interest in are being sent to the same PubSub topic. We need to build the mechanism to separate them into different 'streams' for different downstream use cases. This creates a User-Defined Function (UDF) for each `event.value` in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery columns.
+In this real-world code example, five different event types of interest are being sent to the same PubSub topic. We need to build the mechanism to separate them into different 'streams' for different downstream use cases. This creates a User-Defined Function (UDF) for each `event.value` in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery columns.
 
 ```sql
 DECLARE schema, deployed_parser_dataset_id, deployment_script STRING;
@@ -40,4 +40,4 @@ DO
 END FOR;
 ```
 
-These dan then be called as part of downstream modelling or built into resources such as table-valued functions.
+These can then be called as part of downstream modelling or built into resources such as table-valued functions.
