@@ -13,3 +13,4 @@ resource "google_bigquery_routine" "build_json_parser_body" {
   return_type = jsonencode({ "typeKind" : "STRING" })
   definition_body = file("json/build_json_parser_body.sql")
 }
+
