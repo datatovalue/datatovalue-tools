@@ -47,4 +47,4 @@ SET deployment_script = (
 EXECUTE IMMEDIATE (deployment_script);
 ```
 
-For an example of how to use this function in a real-world use-case, check the advanced guide on [Automated PubSub Parsing](docs/guides/automated_pubsub_parsing.md).
+For an example of how to use this function in a real-world use-case, check the advanced guide on [Automated PubSub Parsing](guides/automated_pubsub_parsing.md).
