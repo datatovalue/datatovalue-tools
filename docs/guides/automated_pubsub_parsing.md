@@ -1,13 +1,13 @@
 # Advanced Guide
 ## Automatic PubSub Payload Parsing
 
-In this real-world code example, five different event types of interest in are being sent to the same PubSub topic. We need to build the mechanism to separate them into different 'streams' for different downstream use cases. This creates a User-Defined Function (UDF) for each `event.value` in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery columns.
+In this real-world code example, five different event types are being sent to the same PubSub topic from Server-side Google Tag Manager (sGTM). We need to build the mechanism to separate them into different 'streams' for different downstream use cases, also filtering out unwanted events based on their names. This creates a User-Defined Function (UDF) for each `event.value` in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery columns.
 
 ```sql
 DECLARE schema, deployed_parser_dataset_id, deployment_script STRING;
 DECLARE event_names ARRAY<STRING>;
 
-SET event_names = ["generate_lead", "call_booked", "generate_lead_gads_request", "staffing_request.created", "organization.created"];
+SET event_names = ["call_booked", "form_complete", "purchase", "account_created"];
 SET deployed_parser_dataset_id = "project_id.sgtm_monitor";
 
 FOR event IN (SELECT value FROM UNNEST(event_names) AS value)
@@ -40,4 +40,4 @@ DO
 END FOR;
 ```
 
-These can then be called as part of downstream modelling or built into resources such as table-valued functions.
+These dan then be called as part of downstream modelling or built into resources such as table-valued functions.
