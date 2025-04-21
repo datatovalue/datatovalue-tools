@@ -40,4 +40,4 @@ DO
 END FOR;
 ```
 
-These dan then be called as part of downstream modelling or built into resources such as table-valued functions.
+These can then be called as part of downstream modelling or built into resources such as table-valued functions.

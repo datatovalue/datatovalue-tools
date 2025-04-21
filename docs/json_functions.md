@@ -28,7 +28,7 @@ SELECT `datatovalue-tools`.eu.build_json_parser_body(schema) AS query
 ```
 This function is actually called via the `deploy_json_parser_query` function to create custom parser functions in your destination dataset. 
 
-### deploy_json_parser_query
+### deploy_json_parser_udf_query
 This function deploys the JSON parser into a destination location of your definition.
 
 Argument | Data Type | Description
@@ -40,7 +40,7 @@ Argument | Data Type | Description
 DECLARE deployment_script STRING;
 
 SET deployment_script = (
-    SELECT `datatovalue-tools.europe_north1.deploy_json_parser_query`(
+    SELECT `datatovalue-tools.europe_north1.deploy_json_parser_udf_query`(
         schema, 
         `project_id.dataset_id.parser_function_name`));
 
