@@ -35,7 +35,7 @@ SET schema = (
     FROM generate_event_schema
   );
 ```
-The subsequent code builds the deployment script and executes the script in order to deploy the custom parser function to the defined dataset.
+The subsequent code builds the deployment script, and executes the script in order to deploy the custom parser function to the defined dataset.
 
 ```sql
 SET deployment_script = (
