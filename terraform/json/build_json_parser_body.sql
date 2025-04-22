@@ -72,6 +72,6 @@ sqlParts.push(`${sql} AS \`${field.name}\``);
 }
 
 // Combine all parts into a SELECT statement
-const finalSQL = `SELECT AS STRUCT\n  ${sqlParts.join(',\n  ')}\n`;
+const finalSQL = `SELECT STRUCT(\n  ${sqlParts.join(',\n  ')}\n) AS payload`;
 
 return finalSQL;
