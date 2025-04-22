@@ -7,7 +7,7 @@ Argument | Data Type | Description
 --- | --- | ---
 `json_value` | `STRING` | Multiple rows of JSON data encoded as strings.
 
-Note that this function is an aggregate function, which means that it can apply a computation to multiple rows and return an aggregated value. In this case we return a single string, which is the BigQuery-compliant JSON schema and assign it to the `schema` JSON string variable.
+Note that this function is an aggregate function, which means that it applies a computation to multiple rows and return an aggregated value, exactly like a `SUM` or `COUNT`. In this case we return a single string - which is the BigQuery-compliant JSON schema - and assign it to the `schema` JSON string variable.
 
 ```sql
 DECLARE schema STRING;
@@ -18,10 +18,10 @@ SET schema = (
  )
 ```
 
-The BigQuery-compliant schema definition can then be used for a variety of subsequent use-cases, such as table creation to match the precise expected inbound data, and custom JSON parser development.
+The BigQuery-compliant schema definition can then be used for a variety of subsequent use-cases, such as table creation to match the precise expected inbound data, and custom JSON parser development, for which deployment functions are documented below.
 
 ### deploy_json_parser_udf_query
-This function deploys the JSON parser as a User-Defined Function (UDF) into a defined destination location. The UDF operates on single rows of data and returns the JSON payload parsed into BigQuery data types and structures for each row.
+This function deploys the JSON parser as a User-Defined Function (UDF) into a defined destination location. The UDF operates on each row of data and returns the JSON payload parsed into BigQuery data types and structures for each row.
 
 Argument | Data Type | Description
 --- | --- | ---
