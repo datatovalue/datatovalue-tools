@@ -5,7 +5,7 @@ The ability to send PubSub messages directly into BigQuery is an immensely power
 1. Define the precise expected JSON schema in advance, non-compliant messages will fail, or
 2. Accept all messages in JSON form into a single column, no messages will fail.
 
-Notwithstanding the significantly simpler setup process and infrastructure for the single-column option, it also results in a considerably more flexible architecture. It can reliably accept messages, even when the message structure is not reliably known in advance.
+Notwithstanding the significantly simpler setup process and infrastructure for the second, single JSON column option, this option also results in a considerably more flexible architecture. It can reliably accept messages, even when the message structure is not reliably known in advance.
 
 In order to segregate, filter and parse this potentially unpredictable data into BigQuery data types and structures in a scalable and predictable manner, the `datatovalue-tools` JSON functions have been developed to support operation and automation at scale.
 
