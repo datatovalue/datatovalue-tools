@@ -1,7 +1,7 @@
 # JSON Functions
 
 ### generate_merged_json_schema
-This User-Defined Aggregate Function (UDAF) takes one to many rows of a single column of JSON string values as an input, and outputs a BigQuery-compliant schema as a JSON string. This schema will contain _any_ path and type present in _any_ of the rows of data, resulting in a merged schema which parses _all_ input object contents in _all_ rows.
+This User-Defined Aggregate Function (UDAF) takes one to many rows of a single column of JSON string values as an input, and outputs a BigQuery-compliant schema as a JSON string. This schema will contain _any_ path and type present in _any_ of the rows of data, resulting in a merged schema which represents _all_ observed input object contents in _all_ rows.
 
 Argument | Data Type | Description
 --- | --- | ---
