@@ -1,4 +1,4 @@
-# Real-World Guides
+# Implementation Guides
 ## Automatic PubSub Payload Parsing
 The ability to send PubSub messages directly into BigQuery is an immensely powerful and scalable serverless capability. However, building the right process to ingest, segregate, filter and parse the messages for subsequent data transformation is non-trivial. When inserting PubSub messages directly into a BigQuery table through a BigQuery Subscription you have two options:
 
