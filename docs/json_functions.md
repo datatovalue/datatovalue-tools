@@ -7,7 +7,7 @@ Argument | Data Type | Description
 --- | --- | ---
 `json_value` | `STRING` | Multiple rows of JSON data encoded as strings.
 
-Note that this function is an aggregate function, which means that it applies a computation to multiple rows and return an aggregated value, exactly like a `SUM` or `COUNT`. In this case we return a single string - which is the BigQuery-compliant JSON schema - and assign it to the `schema` JSON string variable.
+Note that this function is an aggregate function, which means that it applies a computation to multiple rows and return an aggregated value, in the same manner as a `SUM` or `COUNT`. In this case we return a single string - which is the BigQuery-compliant JSON schema - and assign it to the `schema` JSON string variable.
 
 ```sql
 DECLARE schema STRING;
@@ -18,10 +18,10 @@ SET schema = (
  )
 ```
 
-The BigQuery-compliant schema definition can then be used for a variety of subsequent use-cases, such as table creation to match the precise expected inbound data, and custom JSON parser development, for which deployment functions are documented below.
+The BigQuery-compliant schema definition can then be used for a variety of subsequent use-cases such as development of the subsequent custom JSON parsers. It can also be used to create inbound tables which precisely match the expected inbound data structure.
 
 ### deploy_json_parser_udf_query
-This function deploys the JSON parser as a User-Defined Function (UDF) into a defined destination location. The UDF operates on each row of data and returns the JSON payload parsed into BigQuery data types and structures for each row.
+This function deploys the JSON parser as a User-Defined Function (UDF) into a defined destination location (`deployed_parser_id`). The UDF operates on each row of data and returns the JSON payload parsed into BigQuery data types and structures for each row.
 
 Argument | Data Type | Description
 --- | --- | ---
@@ -50,8 +50,10 @@ SET deployment_script = (
 EXECUTE IMMEDIATE (deployment_script);
 ```
 
+Note that by adding a `SELECT deployment_script` statement instead of the `EXECUTE IMMEDIATE (deployment_script)` statement, the `deployment_script` can be inspected and tested before execution.
+
 ### deploy_json_parser_tvf_query
-This function deploys the JSON parser as a Table-Valued Function (TVF) into a destination location of your definition. The Table-Valued Function operates on the defined source table and column, and returns a table-like object with the parsed JSON payload for all rows, converted into BigQuery data types and structures.
+This function deploys the JSON parser as a Table-Valued Function (TVF) into a defined destination location (`deployed_parser_id`). The Table-Valued Function operates on the defined source table (`source_table_id`) and column (`json_column_name`), and returns a table-like object with the parsed JSON payload for all rows, converted into BigQuery data types and structures.
 
 Argument | Data Type | Description
 --- | --- | ---
@@ -84,5 +86,6 @@ SET deployment_script = (
 
 EXECUTE IMMEDIATE (deployment_script);
 ```
+Note that by adding a `SELECT deployment_script` statement instead of the `EXECUTE IMMEDIATE (deployment_script)` statement, the `deployment_script` can be inspected and tested before execution.
 
 For an example of how to use this function in a real-world use-case (to separate and parse separate event types from a single, shared PubSub topic), check the advanced guide on [Automated PubSub Parsing](guides/automated_pubsub_parsing.md).
