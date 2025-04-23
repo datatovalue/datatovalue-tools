@@ -20,10 +20,12 @@ Functions are deployed using Terraform and function source code is version-contr
 ## Permissions
 Functions can be called by any user with `BigQuery Data Viewer`, `BigQuery Data User` or higher permissions on your source data. All authenticated users are permitted to call functions in the `datatovalue-tools` regional datasets.
 
+```
 SET query = "CREATE OR REPLACE VIEW `project_a.dataset_a.new_table` AS "||query;
 
 EXECUTE IMMEDIATE (query);
 ```
 
 ## Usage
+
 Function usage is detailed in the [usage guide](). 
