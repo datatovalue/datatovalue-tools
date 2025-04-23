@@ -28,4 +28,4 @@ EXECUTE IMMEDIATE (query);
 
 ## Usage
 
-Function usage syntax and examples are contained in the [Usage Guide](guides/usage.md).
+Function usage syntax and examples are contained in the [Usage Guide](docs/guides/usage.md).
