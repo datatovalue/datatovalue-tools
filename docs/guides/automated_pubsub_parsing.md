@@ -9,7 +9,7 @@ Notwithstanding the significantly simpler setup process and infrastructure for t
 
 In order to segregate, filter and parse this potentially unpredictable data into BigQuery data types and structures in a scalable and predictable manner, the `datatovalue-tools` JSON functions have been developed to support operation and automation at scale.
 
-## Basic Example: Single Event Type
+### Basic Example: Single Event Type
 In this real-world example, the PubSub messages are contained in the `data` column of the `project_id.sgtm_monitor.sgtm_monitor_logs` date-partitioned table. This initial query builds the merged schema for all observed JSON values where `event_name` = `call_booked`, and assigns it to the `schema` JSON string variable.
 
 ```sql
@@ -50,7 +50,7 @@ SET deployment_script = (
 EXECUTE IMMEDIATE (deployment_script);
 ```
 
-## Complex Example: Multiple Event Types
+### Complex Example: Multiple Event Types
 In this, more complex real-world code example, five different event types with different schemas are being sent to the same PubSub topic. We need to build the mechanism to separate them into different streams for different downstream use cases. This script creates a Table-Valued Function (TVF) for each event name in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery data types and structures.
 
 ```sql
