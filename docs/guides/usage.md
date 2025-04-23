@@ -17,7 +17,7 @@ The following examples assume that the source data is in the `us-west1` region f
 ### View SQL
 In order to view the SQL which has been generated, use a simple `SELECT` statement and pass the `table_id`:
 
-```sql
+```sql 
 SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a');
 ```
 
