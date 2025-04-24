@@ -3,7 +3,7 @@ When a function has a `query` suffix, executing this function will return a SQL 
 
 Action | Approach
 --- | ---
-[View SQL](#view-sql) | Invoke function via `SELECT` statement
+[Inspect SQL](#view-sql) | Invoke function via `SELECT` statement
 [Execute SQL](#execute-sql) | `EXECUTE IMMEDIATE` function
 [Save Results](#save-results) | `Save Results` from executed SQL via the user interface
 [Create Table](#create-table) | Append DDL prefix string and `EXECUTE IMMEDIATE`
@@ -65,7 +65,7 @@ DECLARE query STRING;
 
 SET query = (SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a'));
 
-SET query = "CREATE OR REPLACE TEMP TABLE `temp_table_name` AS "||query;
+SET query = "CREATE OR REPLACE TEMPORARY TABLE `temp_table_name` AS "||query;
 
 EXECUTE IMMEDIATE (query);
 ```
