@@ -24,8 +24,15 @@ add_additional_fields AS (
   TIMESTAMP_MILLIS(last_modified_time) AS last_modified_timestamp,
   SAFE_DIVIDE(size_bytes, POW(1024, 3)) AS size_gib,
   SAFE_DIVIDE(size_bytes, POW(1024, 4)) AS size_tib
-  FROM parse_source_json)
+  FROM parse_source_json),
+
+compute_time_since_modified AS (
+  SELECT *,
+  TIMESTAMP_DIFF(CURRENT_TIMESTAMP, last_modified_timestamp, MINUTE) AS time_since_last_modified_mins,
+  SAFE_DIVIDE(TIMESTAMP_DIFF(CURRENT_TIMESTAMP, last_modified_timestamp, MINUTE), 60) AS time_since_last_modified_hrs,
+  SAFE_DIVIDE(TIMESTAMP_DIFF(CURRENT_TIMESTAMP, last_modified_timestamp, MINUTE), 1440) AS time_since_last_modified_days
+  FROM add_additional_fields)
 
 
 SELECT *
-FROM add_additional_fields)
+FROM compute_time_since_modified)
