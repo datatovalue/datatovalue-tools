@@ -13,7 +13,7 @@ Function Set | Description
 
 ## Deployment
 
-Functions are live and deployed across in the `datatovalue-tools` BigQuery project for all global regions and multi-regions. Deployment regions are set via the `regions` variable in the [terraform.tfvars](https://github.com/datatovalue/datatovalue-tools/blob/main/terraform/terraform.tfvars) file and builld and deploy to the corresponding geographic dataset in the `datatovalue-tools` BigQuery project. Note that the dataset names contain underscores instead of dashes.
+Functions are live and deployed across in the `datatovalue-tools` BigQuery project for all global regions and multi-regions. Note that the dataset names contain underscores instead of dashes (e.g. functions in `europe-north1` are in the dataset `datatovalue-tools.europe_north1`).
 
 Functions are deployed using Terraform and function source code is version-controlled in separate sql files in the `terraform/functions` directory of the `datatovalue/datatovalue-tools` respository.
 

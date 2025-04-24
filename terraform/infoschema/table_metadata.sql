@@ -22,7 +22,8 @@ add_additional_fields AS (
   SELECT *,
   TIMESTAMP_MILLIS(creation_time) AS creation_timestamp,
   TIMESTAMP_MILLIS(last_modified_time) AS last_modified_timestamp,
-  SAFE_DIVIDE(size_bytes, POW(1024, 3)) AS size_gib
+  SAFE_DIVIDE(size_bytes, POW(1024, 3)) AS size_gib,
+  SAFE_DIVIDE(size_bytes, POW(1024, 4)) AS size_tib
   FROM parse_source_json)
 
 

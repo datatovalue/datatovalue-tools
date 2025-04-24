@@ -14,8 +14,8 @@ Action | Approach
 
 The following examples assume that the source data is in the `us-west1` region for the `row_duplicate_query` function. For data in different regions simply replace the `us-west1` with the appropriate region identifier and the function invocation code with the desired function name and appropriate arguments.
 
-### View SQL
-In order to view the SQL which has been generated, use a simple `SELECT` statement and pass the `table_id`:
+### Inspect SQL
+In order to inspect the SQL which has been generated, use a simple `SELECT` statement and pass the `table_id`:
 
 ```sql 
 SELECT `datatovalue-tools.us_west1.row_duplicate_query`('project_a.dataset_a.table_a');
