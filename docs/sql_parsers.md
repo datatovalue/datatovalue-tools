@@ -12,4 +12,4 @@ Argument | Data Type | Description
 
 Data Type | Data Structure | Description
 --- | --- | ---
-**`JSON`** | `ARRAY<STRUCT<cte_index STRING, cte_name STRING, cte_body STRING>>` | 
+**`JSON`** | `ARRAY<STRUCT<cte_index STRING, cte_name STRING, cte_body STRING>>` | Common table expression (cte) code, split by named cte.
