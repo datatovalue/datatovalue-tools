@@ -2,7 +2,7 @@
 Functions which parse SQL queries and derive the logical structure and dependency graph.
 
 ### parse_sql_ctes
-The `parse_sql_ctes` parses SQL queries and returns the sequence, name and contents of each common table expression (cte) in the query.
+The `parse_sql_ctes` function parses SQL queries and returns the sequence, name and contents of each common table expression (cte) in the query.
 
 Argument | Data Type | Description
 --- | --- | ---
