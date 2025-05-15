@@ -2,7 +2,9 @@
 
 The **`datatovalue-tools`** library extends Google BigQuery to simplify common Analytics Engineering use-cases which we encounter daily  working with clients at [Data to Value](https://datatovalue.com/). 
 
-More specifically, the library comprises a set of utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. It is developed and manitained by the Engineering Team at Data to Value and are licensed under Apache 2.0. If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
+More specifically, the library comprises a set of utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. It is developed and manitained by the Engineering Team at Data to Value and are licensed under Apache 2.0. 
+
+If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
 
 ## Functions
 The following sets of functions are deployed in the **datatovalue-tools** Google Cloud project, across all available regions.
