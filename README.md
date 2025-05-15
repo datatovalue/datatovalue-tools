@@ -1,6 +1,6 @@
 # datatovalue-tools
 
-**`datatovalue-tools`** extend Google BigQuery to simplify common Analytics Engineering use-cases, which we encounter daily when working with clients at Data to Value. 
+The **`datatovalue-tools`** library extends Google BigQuery, to simplify common Analytics Engineering use-cases which we encounter daily when working with clients at [Data to Value](https://datatovalue.com/). 
 
 More specifically, the library comprises a set of utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. It is developed and manitained by the Engineering Team at [Data to Value](https://datatovalue.com/) and are licensed under Apache 2.0. If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
 
@@ -17,8 +17,6 @@ Function Set | Description
 
 ## Deployment
 Functions are live and deployed across in the `datatovalue-tools` BigQuery project for all global regions and multi-regions. Note that the dataset names contain underscores instead of dashes (e.g. functions in `europe-north1` are in the dataset `datatovalue-tools.europe_north1`).
-
-Functions are deployed using Terraform and function source code is version-controlled in separate sql files in the `terraform/functions` directory of the `datatovalue/datatovalue-tools` respository.
 
 ## Permissions
 Functions can be called by any user with `BigQuery Data Viewer`, `BigQuery Data User` or higher permissions on your source data. All authenticated users are permitted to call functions in the `datatovalue-tools` regional datasets.
