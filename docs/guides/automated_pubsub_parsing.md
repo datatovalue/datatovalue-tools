@@ -54,11 +54,13 @@ EXECUTE IMMEDIATE (deployment_script);
 In this, more complex real-world code example, five different event types with different schemas are being sent to the same PubSub topic. We need to build the mechanism to separate them into different streams for different downstream use cases. This script creates a Table-Valued Function (TVF) for each event name in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery data types and structures.
 
 ```sql
-DECLARE deployed_parser_dataset_id, schema, deployment_script STRING;
+DECLARE source_table_id, json_column_name, parsed_event_name, deployed_parser_id, schema, deployment_script STRING;
 DECLARE event_names ARRAY<STRING>;
 
 SET event_names = ["generate_lead", "call_booked", "generate_lead_gads_request", "staffing_request.created", "organization.created"];
 SET deployed_parser_dataset_id = "project_id.sgtm_monitor";
+SET source_table_id = "project_id.sgtm_monitor.sgtm_monitor_logs";
+SET json_column_name = "data";
 
 FOR event IN (SELECT value FROM UNNEST(event_names) AS value)
 DO
