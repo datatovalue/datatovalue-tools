@@ -1,6 +1,8 @@
 # datatovalue-tools
 
-Data to Value Tools are BigQuery utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. They are developed and manitained by the Engineering Team at [Data to Value](https://datatovalue.com/) and are licensed under Apache 2.0. If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
+**`datatovalue-tools`** extend Google BigQuery to simplify common Analytics Engineering use-cases, which we encounter daily when working with clients at Data to Value. 
+
+More specifically, the library comprises a set of utility functions to support data profiling, debugging, root-cause analysis and automation activities in data transformation and management. It is developed and manitained by the Engineering Team at [Data to Value](https://datatovalue.com/) and are licensed under Apache 2.0. If you are interested in making a contribution or suggestion, please contact `jim@datatovalue.com`.
 
 ## Functions
 The following sets of functions are deployed in the **datatovalue-tools** Google Cloud project, across all available regions.
@@ -12,7 +14,6 @@ Function Set | Description
 [JSON Functions](docs/json_functions.md) | Functions to support automatic schema parsing and JSON parser deployment, to support accurate data transfer and efficient data pipeline development.
 [SQL Parsers](docs/sql_parsers.md) | Functions which parse SQL queries and derive the logical structure and dependency graph.
 [Monitor Functions](docs/monitor_functions.md) | Functions which are used to monitor BigQuery resources and resource status.
-
 
 ## Deployment
 Functions are live and deployed across in the `datatovalue-tools` BigQuery project for all global regions and multi-regions. Note that the dataset names contain underscores instead of dashes (e.g. functions in `europe-north1` are in the dataset `datatovalue-tools.europe_north1`).
