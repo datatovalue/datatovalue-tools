@@ -4,7 +4,7 @@ resource "google_bigquery_routine" "table_shape" {
   dataset_id   = replace(each.value, "-", "_")
   routine_id   = "table_shape"
   routine_type = "TABLE_VALUED_FUNCTION"
-  description  = "metadata.table_shape table function v${var.release_version}"
+  description  = "table_shape table function v${var.release_version}"
   language     = "SQL"
   arguments {
     name      = "table_shape_json"
