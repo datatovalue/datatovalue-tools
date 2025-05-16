@@ -22,7 +22,3 @@ Functions are live and deployed across in the `datatovalue-tools` BigQuery proje
 
 ## Permissions
 Functions can be called by any user with `BigQuery Data Viewer`, `BigQuery Data User` or higher permissions on your source data. All authenticated users are permitted to call functions in the `datatovalue-tools` regional datasets.
-
-## Usage
-
-Function usage syntax and examples are contained in the [Usage Guide](docs/guides/usage.md).

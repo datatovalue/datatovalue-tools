@@ -8,7 +8,6 @@ Argument | Data Type | Description
 --- | --- | ---
 **`config`** | **`JSON`** | Array of JSON objects defining table-level thresholds. The schema is outlined below.
 
-
 #### Configuration
 The `config` JSON argument has the following structure:
 
