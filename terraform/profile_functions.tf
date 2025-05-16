@@ -11,7 +11,7 @@ resource "google_bigquery_routine" "row_duplicate_query" {
     name      = "table_id"
     data_type = jsonencode({ "typeKind" : "STRING" })
   }
-  definition_body = file("functions/row_duplicate_query.sql")
+  definition_body = file("profile_functions/row_duplicate_query.sql")
 }
 
 resource "google_bigquery_routine" "unique_combination_query" {
@@ -30,7 +30,7 @@ resource "google_bigquery_routine" "unique_combination_query" {
     name      = "column_names"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
   }
-  definition_body = file("functions/unique_combination_query.sql")
+  definition_body = file("profile_functions/unique_combination_query.sql")
 }
 
 resource "google_bigquery_routine" "table_date_partitions_query" {
@@ -49,7 +49,7 @@ resource "google_bigquery_routine" "table_date_partitions_query" {
     name      = "dataset_names"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } })
   }
-  definition_body = file("functions/table_date_partitions_query.sql")
+  definition_body = file("profile_functions/table_date_partitions_query.sql")
 }
 
 resource "google_bigquery_routine" "column_profile_query" {
@@ -64,7 +64,7 @@ resource "google_bigquery_routine" "column_profile_query" {
     name      = "table_id"
     data_type = jsonencode({ "typeKind" : "STRING" })
   }
-  definition_body = file("functions/column_profile_query.sql")
+  definition_body = file("profile_functions/column_profile_query.sql")
 }
 
 resource "google_bigquery_routine" "unique_combination_multi_query" {
@@ -79,7 +79,7 @@ resource "google_bigquery_routine" "unique_combination_multi_query" {
     name      = "table_column_combinations"
     data_type = jsonencode({ typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRUCT", "structType" : { "fields" : [{ "name" : "table_id", "type" : { "typeKind" : "STRING" } }, { "name" : "column_names", "type" : { typeKind = "ARRAY", "arrayElementType" : { "typeKind" : "STRING" } } }] } } })
   }
-  definition_body = replace(file("functions/unique_combination_multi_query.sql"), "${var.template_project_id}.${var.template_dataset_id}", "${var.project_id}.${replace(each.value, "-", "_")}")
+  definition_body = replace(file("profile_functions/unique_combination_multi_query.sql"), "${var.template_project_id}.${var.template_dataset_id}", "${var.project_id}.${replace(each.value, "-", "_")}")
 }
 
 resource "google_bigquery_routine" "metric_trace_sum_query" {
@@ -110,6 +110,6 @@ resource "google_bigquery_routine" "metric_trace_sum_query" {
     name      = "rounding_digits"
     data_type = jsonencode({ "typeKind" : "INT64" })
   }
-  definition_body = file("functions/metric_trace_sum_query.sql")
+  definition_body = file("profile_functions/metric_trace_sum_query.sql")
 }
 

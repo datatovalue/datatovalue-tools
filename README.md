@@ -10,7 +10,7 @@ The following sets of functions are deployed in the **datatovalue-tools** Google
 Function Set | Description
 --- | ---
 [Infoschema Functions](docs/infoschema_functions.md) | Functional implementation of the [INFORMATION_SCHEMA](https://cloud.google.com/bigquery/docs/information-schema-intro) metadata views to support automation activities. 
-[Profiling Functions](docs/profiling_functions.md) | Functions to support data quality assurance activities by modelling, integrating and analysing table contents and metadata.
+[Profilw Functions](docs/profile_functions.md) | Functions to support data quality assurance activities by modelling, integrating and analysing table contents and metadata.
 [JSON Functions](docs/json_functions.md) | Functions to support automatic schema parsing and JSON parser deployment, to support accurate data transfer and efficient data pipeline development.
 [SQL Parsers](docs/sql_parsers.md) | Functions which parse SQL queries and derive the logical structure and dependency graph.
 [Monitor Functions](docs/monitor_functions.md) | Functions which are used to monitor BigQuery resources and resource status.
