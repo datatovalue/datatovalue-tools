@@ -21,7 +21,8 @@ The `config` JSON object argument has the following structure:
     {"table_id": "project_id.dataset_name.table_name_y", "alert_threshold_hrs": 25},
     {"table_id": "project_id.dataset_name.table_name_z", "alert_threshold_hrs": 1.0}
 ]
-}```
+}
+```
 
 Only specific tables identified in the `tables` array will be represented in the output table function.
 
@@ -48,4 +49,6 @@ SELECT `datatovalue-tools.eu.deploy_monitor_table`(config)
 );
 ```
 
-Note that executing this script _without_ the `EXECUTE IMMEDIATE` wrapper around the `deploy_monitor_table` function will return the DDL statement to be executed - useful for debugging and verification.
+Note that executing this script _without_ the `EXECUTE IMMEDIATE` wrapper around the `deploy_monitor_table` function will return the DDL statement to be executed - useful for debugging and verification. 
+
+Here the dataset name is `MONITOR` but this can be configured as required. Functions can be edited as needed, and note that renaming functions serves the purpose of 'forking' them locally as they will then not be overwritten by subsequent deployments. If a function _has_ been edited but _not_ renamed, a subsquent deployment will overwrite the edited function.
