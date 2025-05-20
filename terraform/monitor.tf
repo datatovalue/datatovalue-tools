@@ -1,10 +1,10 @@
-resource "google_bigquery_routine" "deploy_monitor_tables_view_query" {
+resource "google_bigquery_routine" "deploy_monitor_tables" {
   project      = var.project_id
   for_each     = toset(var.regions)
   dataset_id   = replace(each.value, "-", "_")
-  routine_id   = "deploy_monitor_tables_view_query"
+  routine_id   = "deploy_monitor_tables"
   routine_type = "SCALAR_FUNCTION"
-  description  = "deploy_monitor_tables_view query generator v${var.release_version}"
+  description  = "deploy_monitor_tables_tvf query generator v${var.release_version}"
   language     = "SQL"
   arguments {
     name      = "config"
