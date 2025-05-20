@@ -21,10 +21,10 @@ The `config` JSON object argument has the following structure:
     {"table_id": "project_id.dataset_name.table_name_y", "alert_threshold_hrs": 25},
     {"table_id": "project_id.dataset_name.table_name_z", "alert_threshold_hrs": 1.0}
 ]
-}
+}```
 
 Only specific tables identified in the `tables` array will be represented in the output table function.
-```
+
 
 #### Deployment
 The outcome of executing this function is the table function `monitor_tables` deployed in the desination `monitor_dataset_id` dataset, which can be queried to return a live summary of table metadata. There are also additional flags, thresholds, data conversions and computations to make subsequent logical operations and integrations as simple, concise and readable as possible. 
