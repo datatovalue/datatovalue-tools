@@ -45,7 +45,7 @@ SET config = JSON '''{
   }''';
 
 EXECUTE IMMEDIATE (
-SELECT `datatovalue-tools.eu.deploy_monitor_table`(config)
+SELECT `datatovalue-tools.eu.deploy_monitor_tables`(config)
 );
 ```
 
