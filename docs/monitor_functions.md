@@ -28,7 +28,7 @@ Only specific tables identified in the `tables` array will be represented in the
 
 
 #### Deployment
-The outcome of executing this function is the table function `monitor_tables` deployed in the desination `monitor_dataset_id` dataset, which can be queried to return a live summary of table metadata. There are also additional flags, thresholds, data conversions and computations to make subsequent logical operations and integrations as simple, concise and readable as possible. 
+The outcome of executing this function is the table function `monitor_tables` deployed in the destination `monitor_dataset_id` dataset, which can be queried to return a live summary of table metadata. There are also additional flags, thresholds, data conversions and computations to make subsequent logical operations and integrations as simple, concise and readable as possible. 
 
 The script to deploy the `monitor_tables` function into the  `monitor_dataset_id` is therefore:
 
