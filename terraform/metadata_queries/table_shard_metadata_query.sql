@@ -22,7 +22,7 @@ rename_columns AS (
   project_id,
   dataset_id AS dataset_name,
   table_id AS table_name, 
-  project_id||'.'||dataset_id||'.'||dataset_id AS table_id,
+  project_id||'.'||dataset_id||'.'||table_id AS table_id,
   *
   EXCEPT (project_id, dataset_id, table_id)
   FROM tables_metadata
@@ -30,7 +30,9 @@ rename_columns AS (
 
 add_computations AS (
   SELECT *,
+  DATE(TIMESTAMP_MILLIS(creation_time)) AS creation_date,
   TIMESTAMP_MILLIS(creation_time) AS creation_timestamp,
+  DATE(TIMESTAMP_MILLIS(last_modified_time)) AS last_modified_date,
   TIMESTAMP_MILLIS(last_modified_time) AS last_modified_timestamp,
   TIMESTAMP_DIFF(TIMESTAMP_MILLIS(last_modified_time), TIMESTAMP_MILLIS(creation_time), MINUTE) AS time_between_creation_and_modification_mins,
   SAFE_DIVIDE (size_bytes, POW(1024,2)) AS size_mib,
@@ -66,7 +68,7 @@ parse_date_prefix AS (
 
 compute_days_since_creation AS (
   SELECT *,
-  SAFE_DIVIDE(TIMESTAMP_DIFF(CURRENT_TIMESTAMP, creation_timestamp, HOUR), 24) AS days_since_creation,
+  SAFE_DIVIDE(TIMESTAMP_DIFF(CURRENT_TIMESTAMP, creation_timestamp, MINUTE), 24 * 60) AS days_since_creation,
   FROM parse_date_prefix
   ),
 
@@ -86,8 +88,8 @@ compute_gib_days_by_shard AS (
 
 add_per_gib_day_rates AS (
   SELECT *,
-  (0.2 / 30) AS active_cost_per_gib_day_usd,
-  (0.1 / 30) AS long_term_cost_per_gib_day_usd
+  (0.02 / 30.4375) AS active_cost_per_gib_day_usd,
+  (0.01 / 30.4375) AS long_term_cost_per_gib_day_usd
   FROM compute_gib_days_by_shard
   ),
 
