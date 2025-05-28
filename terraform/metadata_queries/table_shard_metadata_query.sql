@@ -49,7 +49,7 @@ parse_table_suffix AS (
 
 parse_date_suffix AS (
   SELECT *,
-  PARSE_DATE("%Y%m%d", table_suffix) AS date_suffix
+  SAFE.PARSE_DATE("%Y%m%d", table_suffix) AS date_suffix
   FROM parse_table_suffix
   ),
 
@@ -60,10 +60,16 @@ flag_date_shards AS (
   FROM parse_date_suffix
   ),
 
+filter_for_valid_date_shards AS (
+  SELECT *
+  FROM flag_date_shards
+  WHERE is_date_shard IS true
+  ),
+
 parse_date_prefix AS (
   SELECT *,
   RTRIM(table_name, "_"||table_suffix) AS table_prefix
-  FROM flag_date_shards
+  FROM filter_for_valid_date_shards
   ),
 
 compute_days_since_creation AS (

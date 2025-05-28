@@ -1,5 +1,5 @@
 project_id      = "datatovalue-tools"
-release_version = "1.1.6"
+release_version = "1.1.7"
 
 template_project_id = "datatovalue-tools"
 template_dataset_id = "eu"
