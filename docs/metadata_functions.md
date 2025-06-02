@@ -10,14 +10,19 @@ The `deploy_table_shard_metadata` function deploys the `table_shard_metadata` ta
 
 The Medium article referencing this function [Analyzing Google Analytics 4 Storage Cost in BigQuery](https://datatovalue.blog/analyzing-google-analytics-4-storage-cost-in-bigquery-8e68878559b7) contains a number of examples demonstrating how to query this metadata table function.
 
+
 Argument | Data Type | Description
---- | --- | ---
+--- | :-: | ---
 **`options`** | **`JSON`** | Options object consisting of `monitor_dataset_id` and `dataset_ids` options.
 
+
 #### Options
---- | --- | ---
+
+Option | Data Type | Description
+--- | :-: | ---
 **`monitor_dataset_id`** | **`STRING`** | The ID of the dataset in which the `table_shard_metadata` will be deployed.
 **`dataset_ids`** | **`ARRAY<STRING>`** | An array of dataset IDs for which we want to analyze metadata.
+
 
 The `options` JSON object therefore has the following structure:
 
@@ -54,13 +59,14 @@ SELECT `datatovalue-tools.eu.deploy_table_shard_metadata`(options)
 The `deploy_storage_billing_model` function deploys the `storage_billing_model` table function. This identifies the storage billing models for all datasets in a project and computes relative cost by table for `PHYSICAL` vs. `LOGICAL` Storage Billing Models. It is used to identify potential costs savings by switching billing model.
 
 Argument | Data Type | Description
---- | --- | ---
+--- | :-: | ---
 **`options`** | **`JSON`** | Options object consisting of `project_id` and `monitor_dataset_id` options.
 
 #### Options
---- | --- | ---
+Option | Data Type | Description
+--- | :-: | ---
 **`project_id`** | **`STRING`** | The ID of the project for which we want to analyze metadata.
-**`monitor_dataset_id`** | **`STRING`** | The ID of the dataset in which the `table_shard_metadata` table function will be deployed.
+**`monitor_dataset_id`** | **`STRING`** | The ID of the dataset into which the `table_shard_metadata` table function will be deployed.
 
 The `options` JSON object therefore has the following structure:
 
