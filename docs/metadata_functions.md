@@ -72,7 +72,7 @@ The `options` JSON object therefore has the following structure:
 
 ```json
 {
-  "project_id": "project_id.dataset_name",
+  "project_id": "project_id",
   "monitor_dataset_id": "project_id.monitor_dataset_name"
 }
 ```
@@ -90,7 +90,7 @@ The script to deploy the `storage_billing_model` function into the  `monitor_dat
 DECLARE options JSON;
 
 SET options = JSON '''{
-  "project_id": "project_id.dataset_name",
+  "project_id": "project_id",
   "monitor_dataset_id": "project_id.monitor_dataset_name"
   }''';
 
