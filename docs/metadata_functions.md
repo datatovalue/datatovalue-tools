@@ -66,7 +66,7 @@ Argument | Data Type | Description
 Option | Data Type | Description
 --- | :-: | ---
 **`project_id`** | **`STRING`** | The ID of the project for which we want to analyze metadata.
-**`monitor_dataset_id`** | **`STRING`** | The ID of the dataset into which the `table_shard_metadata` table function will be deployed.
+**`monitor_dataset_id`** | **`STRING`** | The ID of the dataset into which the `storage_billing_model` table function will be deployed.
 
 The `options` JSON object therefore has the following structure:
 

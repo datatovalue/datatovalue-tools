@@ -134,13 +134,18 @@ forecast_cost_for_new_model AS (
 
 compute_cost_savings AS (
   SELECT *,
-  total_cost_per_month_usd - future_total_cost_per_month_usd AS cost_savings_per_month_usd,
-  12 * (total_cost_per_month_usd - future_total_cost_per_month_usd) AS cost_savings_per_year_usd
+  total_cost_per_month_usd - future_total_cost_per_month_usd AS cost_savings_per_month_usd
   FROM forecast_cost_for_new_model
-  )
+  ),
+
+compute_bounds AS (
+  SELECT *,
+  active_logical_cost_per_month_usd + long_term_logical_cost_per_month_usd AS all_logical_cost_per_month,
+  active_physical_cost_per_month_usd + long_term_physical_cost_per_month_usd AS all_physical_cost_per_month
+  FROM compute_cost_savings)
 
 
 SELECT *
-FROM compute_cost_savings"""
+FROM compute_bounds"""
 )
 
