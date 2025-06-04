@@ -138,5 +138,5 @@ EXECUTE IMMEDIATE (
 SELECT `datatovalue-tools.eu.set_dataset_options`(options)
 );
 ```
-This can be used in conjunction with the `deploy_storage_billing_model` to automate the optimization of storage billing model.
+This can be used in conjunction with the `deploy_storage_billing_model` to automate the optimization of storage billing model selection.
 
