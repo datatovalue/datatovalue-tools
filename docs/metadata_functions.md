@@ -124,7 +124,7 @@ The `options` JSON object therefore has the following structure:
 #### Deployment
 The outcome of executing this function is the updated metadata of the `dataset_id` dataset.
 
-The script to use the `set_dataset_options` function to update dataset metadata is therefore:
+The script to update dataset metadata using the `set_dataset_options` function is therefore:
 
 ```sql
 DECLARE options JSON;
