@@ -99,4 +99,44 @@ SELECT `datatovalue-tools.eu.deploy_storage_billing_model`(options)
 );
 ```
 
+### set_dataset_options
+The `set_dataset_options` function updates the options on a dataset, updating metadata in line with the [schema_set_options_list](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#schema_set_options_list).
+
+Argument | Data Type | Description
+--- | :-: | ---
+**`options`** | **`JSON`** | Options object.
+
+#### Options
+Option | Data Type | Description
+--- | :-: | ---
+**`dataset_id`** | **`STRING`** | REQUIRED. The ID of the dataset to update options.
+**`storage_billing_model`** | **`STRING`** | Alters the storage billing model for the dataset. Set the storage_billing_model value to PHYSICAL to use physical bytes when calculating storage charges, or to LOGICAL to use logical bytes. LOGICAL is the default. When you change a dataset's billing model, it takes 24 hours for the change to take effect. Once you change a dataset's storage billing model, you must wait 14 days before you can change the storage billing model again. 
+
+The `options` JSON object therefore has the following structure:
+
+```json
+{
+  "dataset_id": "project_id.dataset_name",
+  "storage_billing_model": "PHYSICAL"
+}
+```
+
+#### Deployment
+The outcome of executing this function is the updated metadata of the `dataset_id` dataset.
+
+The script to use the `set_dataset_options` function to update dataset metadata is therefore:
+
+```sql
+DECLARE options JSON;
+
+SET options = JSON '''{
+  "dataset_id": "project_id.dataset_name",
+  "storage_billing_model": "PHYSICAL"
+  }''';
+
+EXECUTE IMMEDIATE (
+SELECT `datatovalue-tools.eu.set_dataset_options`(options)
+);
+```
+This can be used in conjunction with the `deploy_storage_billing_model` to automate the optimization of storage billing model.
 
