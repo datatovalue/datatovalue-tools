@@ -44,5 +44,21 @@ resource "google_bigquery_routine" "storage_billing_model_query" {
 }
 
 
+resource "google_bigquery_routine" "set_dataset_options_query" {
+  project      = var.project_id
+  for_each     = toset(var.regions)
+  dataset_id   = replace(each.value, "-", "_")
+  routine_id   = "set_dataset_options_query"
+  routine_type = "SCALAR_FUNCTION"
+  description  = "set_dataset_options query generator v${var.release_version}"
+  language     = "SQL"
+  arguments {
+    name      = "options"
+    data_type = jsonencode({ typeKind = "JSON" })
+  }
+  definition_body = templatefile("./metadata_queries/set_dataset_options_query.sql", { region = each.value })
+}
+
+
 
 
