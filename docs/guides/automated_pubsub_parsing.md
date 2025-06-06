@@ -13,7 +13,7 @@ In order to segregate, filter and parse this potentially unpredictable data into
 In this real-world example, the PubSub messages are contained in the `data` column of the `project_id.sgtm_monitor.sgtm_monitor_logs` date-partitioned table. This initial query builds the merged schema for all observed JSON values where `event_name` = `call_booked`, and assigns it to the `schema` JSON string variable.
 
 ```sql
-DECLARE single_event_name, schema, deployed_parser_dataset_id, deployment_script STRING;
+DECLARE single_event_name, schema, deployment_script, deployed_parser_dataset_id, source_table_id, json_column_name STRING;
 
 SET single_event_name = "call_booked";
 
@@ -23,7 +23,7 @@ SET schema = (
       SELECT 
       JSON_VALUE (data, "$.event_name") AS event_name, * 
       FROM `project_id.sgtm_monitor.sgtm_monitor_logs` 
-      WHERE DATE(_PARTITIONTIME) >= CURRENT_DATE - 90),
+      WHERE DATE(_PARTITIONTIME) >= CURRENT_DATE - 14),
 
     generate_event_schema AS (
       SELECT 
@@ -38,6 +38,10 @@ SET schema = (
 The subsequent code builds the deployment script, and executes the script in order to deploy the custom parser function to the defined dataset.
 
 ```sql
+SET deployed_parser_dataset_id = 'project_id.sgtm_monitor';
+SET source_table_id = "project_id.sgtm_monitor.sgtm_monitor_logs";
+SET json_column_name = "data";
+
 SET deployment_script = (
  SELECT `datatovalue-tools.eu.deploy_json_parser_tvf_query`(
   schema, 
@@ -47,17 +51,19 @@ SET deployment_script = (
   )
 );
 
-EXECUTE IMMEDIATE (deployment_script);
+EXECUTE IMMEDIATE (
+  deployment_script
+);
 ```
 
 ### Complex Example: Multiple Event Types
-In this, more complex real-world code example, five different event types with different schemas are being sent to the same PubSub topic. We need to build the mechanism to separate them into different streams for different downstream use cases. This script creates a Table-Valued Function (TVF) for each event name in the `event_names` list, which parses the different observed data structures (over the past 90 days) into BigQuery data types and structures.
+In this, more complex real-world code example, five different event types with different schemas are being sent to the same PubSub topic. We need to build the mechanism to separate them into different streams for different downstream use cases. This script creates a Table-Valued Function (TVF) for each event name in the `event_names` list, which parses the different observed data structures (over the past 14 days) into BigQuery data types and structures.
 
 ```sql
-DECLARE source_table_id, json_column_name, parsed_event_name, deployed_parser_id, schema, deployment_script STRING;
 DECLARE event_names ARRAY<STRING>;
+DECLARE deployed_parser_dataset_id, source_table_id, json_column_name, schema, deployment_script STRING;
 
-SET event_names = ["generate_lead", "call_booked", "generate_lead_gads_request", "staffing_request.created", "organization.created"];
+SET event_names = ["generate_lead", "call_booked", "account_created", "organization_created"];
 SET deployed_parser_dataset_id = "project_id.sgtm_monitor";
 SET source_table_id = "project_id.sgtm_monitor.sgtm_monitor_logs";
 SET json_column_name = "data";
@@ -70,7 +76,7 @@ DO
       SELECT 
       JSON_VALUE (data, "$.event_name") AS event_name, * 
       FROM `project_id.sgtm_monitor.sgtm_monitor_logs` 
-      WHERE DATE(_PARTITIONTIME) >= CURRENT_DATE - 90),
+      WHERE DATE(_PARTITIONTIME) >= CURRENT_DATE - 14),
 
     generate_event_schema AS (
       SELECT 
@@ -90,7 +96,9 @@ DO
     )
   );
 
-  EXECUTE IMMEDIATE (deployment_script);
+  EXECUTE IMMEDIATE (
+    deployment_script
+  );
 
 END FOR;
 ```
