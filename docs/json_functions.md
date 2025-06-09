@@ -95,7 +95,7 @@ This function takes a JSON string as an input, and returns the hierarchichal rep
 
 Argument | Data Type | Description
 --- | --- | ---
-`json_string` | `STRING` | BigQuery-compliant JSON schema string.
+`json_string` | `STRING` | JSON string variable.
 
 The following example script declares and sets a JSON string variable, and returns a text-based visual representation:
  
