@@ -89,3 +89,46 @@ EXECUTE IMMEDIATE (deployment_script);
 Note that by adding a `SELECT deployment_script` statement instead of the `EXECUTE IMMEDIATE (deployment_script)` statement, the `deployment_script` can be inspected and tested before execution.
 
 For an example of how to use this function in a real-world use-case (to separate and parse separate event types from a single, shared PubSub topic), check the advanced guide on [Automated PubSub Parsing](guides/automated_pubsub_parsing.md).
+
+### build_json_tree
+This function takes a JSON string as an input, and returns the hierarchichal representation of the structure and values in a text-based tree format, inspired by [Tree](https://tree.nathanfriend.com/).
+
+Argument | Data Type | Description
+--- | --- | ---
+`json_string` | `STRING` | BigQuery-compliant JSON schema string.
+
+The following example script declares and sets a JSON string variable, and returns a text-based visual representation:
+ 
+```sql 
+DECLARE json_string STRING;
+
+SET json_string = '''{
+  "key_1": "value_1",
+  "key_2": 24,
+  "key_3": true,
+  "key_4": ["x", "y", "z"],
+  "key_5": [{"tag": "a"}, {"tag": "b"}],
+  "key_6": null
+}''';
+
+SELECT `datatovalue-tools.eu.build_json_tree`(json_string) AS json_tree;
+```
+
+This will return the following text:
+```txt
+.
+├── key_1: value_1
+├── key_2: 24
+├── key_3: true
+├── key_4:
+    ├── [0]: x
+    ├── [1]: y
+    └── [2]: z
+├── key_5:
+    ├── [0]:
+    │   └── tag: a
+    └── [1]:
+        └── tag: b
+└── key_6: null
+```
+Any JSON structure will be represented in this ASCII format, exactly in the sequence of the input.
